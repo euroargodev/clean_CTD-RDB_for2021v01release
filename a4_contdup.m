@@ -37,7 +37,7 @@ for i=1:numel(boxes)
         % to interpolated/truncated profiles (900:10:2000)
         [ind,filein]=box_cont_dup(inpath,box);
         n=size(ind,1);
-        excl=[];perc_t=[];perc_s=[];near=[];
+        excl=[];perc_t=[];perc_s=[];near=zeros(n,1);
         % for each pair
         for k=1:n
             %skips pair if one member has been excluded already
@@ -64,9 +64,13 @@ for i=1:numel(boxes)
                             excl=[excl ind(k,w)];
                         end
                     else % if they are far away delete both profiles (metadata uncertainty)
-                        excl=[excl ind(k,:)];
+                        excl=[excl ind(k,:)];                        
                     end
+                else
+                    near(k)=NaN;                    
                 end
+            else
+                conf(k,1)=0;
             end
         end
         
@@ -75,10 +79,10 @@ for i=1:numel(boxes)
         if exist('conf','var')==1
             disp(['from which ' num2str(numel(find(conf==1))) ' are actually content duplicates'])
             disp('.')
-            disp([num2str(numel(find(near==1))) ' were near to each other'])
-            disp([num2str(numel(find(near==0))) ' were far from each other'])
+            disp([num2str(numel(find(near==1 & conf==1))) ' were near to each other'])
+            disp([num2str(numel(find(near==0 & conf==1))) ' were far from each other'])
             disp([num2str(numel(excl)) ' profiles will be excluded'])
-            output{i}(j,:)=[n numel(find(conf==1)) numel(find(near==1)) numel(find(near==0)) numel(excl)];
+            output{i}(j,:)=[n numel(find(conf==1)) numel(find(near==1 & conf==1)) numel(find(near==0 & conf==1)) numel(excl)];
             box_excl(inpath,box,excl,outpath)
         else
             output{i}(j,:)=[n NaN NaN NaN NaN];
@@ -88,6 +92,10 @@ for i=1:numel(boxes)
         end
         
         % storing indices
+        IND{i,j}=ind;
+        if exist('conf','var')==1
+        CONF{i,j}=conf;NEAR{i,j}=near;
+        end
         PERCT{i,j}=perc_t;
         PERCS{i,j}=perc_s;
         clear perc* conf* near
@@ -101,4 +109,4 @@ for i=1:numel(boxes)
     diary off
 end
 output_label={'n probdup','n contdup','nearby','far','n profiles excluded'};
-save a4_results.mat boxes output* regions EXCL PER*;
+save a4_results.mat boxes output* regions EXCL PER* IND CONF NEAR;
