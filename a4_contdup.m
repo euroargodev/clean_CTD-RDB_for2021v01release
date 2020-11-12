@@ -37,13 +37,13 @@ for i=1:numel(boxes)
         % to interpolated/truncated profiles (900:10:2000)
         [ind,filein]=box_cont_dup(inpath,box);
         n=size(ind,1);
-        excl=[];perc_t=[];perc_s=[];
+        excl=[];perc_t=[];perc_s=[];near=[];
         % for each pair
         for k=1:n
             %skips pair if one member has been excluded already
             if sum(ismember(ind(k,:),excl))==0
                 % checks if the profile is content duplicate
-                [perc_t(k,1),perc_s(k,1),conf(k,1)]=prof_compcont(filein,ind(k,:));
+                [perc_t(k,1),perc_s(k,1),conf(k,1)]=prof_compcontdeep(filein,ind(k,:),0,95);
                 if conf(k)==1 % if it is
                     % check if the profiles are near to each other (3 km, 3
                     % days)
@@ -90,7 +90,7 @@ for i=1:numel(boxes)
         % storing indices
         PERCT{i,j}=perc_t;
         PERCS{i,j}=perc_s;
-        clear perc* conf*
+        clear perc* conf* near
         EXCL{i,j}=excl;
         
         disp('...')
