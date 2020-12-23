@@ -15,10 +15,7 @@ if isfile([rdb_path 'ctd_' num2str(box) '.mat'])
     % 2. Remove profiles
     [ind, output2]=box_cleanprofiles(outpath,box,outpath);
     
-    % 3. Sort dates
-    box_sortdates(outpath,box,outpath)
-    
-    % 4. If more than 10000 profiles
+    % 3. If more than 10000 profiles
     filename=['ctd_' num2str(box)];
     load([outpath filename],'dates')
     n=numel(dates);
@@ -41,4 +38,3 @@ else
 end
 
 output_label={'initial n','out T','out S','incompl. samples','incompl. prof','out box','shallow','NMIP','excl. prof','total n','extra rem'};
-
