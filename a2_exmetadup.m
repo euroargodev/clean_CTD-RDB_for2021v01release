@@ -83,9 +83,10 @@ for i=1:numel(boxes)
         end
         
         %storing indices
+        IND{i,j}=ind;
         PERCT{i,j}=perc_t;
         PERCS{i,j}=perc_s;
-        clear perc* conf*
+        clear perc* conf* ind
         EXCL{i,j}=excl;
         
         disp('...')
@@ -94,4 +95,4 @@ for i=1:numel(boxes)
     diary off
 end
 output_label={'n emetadup','same content','different content',' n profiles excluded'};
-save a2_results.mat boxes output* regions EXCL PERC*;
+save a2_results.mat boxes output* regions EXCL PERC* IND;
