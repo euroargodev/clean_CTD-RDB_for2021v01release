@@ -6,8 +6,8 @@ clear variables
 load regions.mat
 %% Content duplicates
 
-outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\A4\';
-inp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\A3\';
+outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\A3\';
+inp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\A2\';
 % create output folder if does not exist
 if ~exist(outp, 'dir')
     mkdir(outp)
@@ -23,7 +23,7 @@ for i=1:numel(boxes)
     end
     
     % start log
-    eval(['diary ' outp 'a4_' strrep(regions{i},' ','_') '.txt'])
+    eval(['diary ' outp 'a3_' strrep(regions{i},' ','_') '.txt'])
     disp('---------------------------------------------------')
     disp(regions{i})
     disp('...')
@@ -37,7 +37,10 @@ for i=1:numel(boxes)
         % to interpolated/truncated profiles (900:10:2000)
         [ind,filein]=box_cont_dup(inpath,box);
         n=size(ind,1);
-        excl=[];perc_t=[];perc_s=[];near=zeros(n,1);
+        % preallocating vars
+        excl=[];
+        perc_t=zeros(n,1);perc_s=zeros(n,1);conf=zeros(n,1);
+        skip=zeros(n,1);des=zeros(n,1);near=zeros(n,1);
         % for each pair
         for k=1:n
             %skips pair if one member has been excluded already
@@ -54,23 +57,33 @@ for i=1:numel(boxes)
                         w2=prof_compqc(filein,ind(k,:)); % profile qclevel/source
                         % find worst profile giving preference to the content
                         if w1==0
-                            w=w2; else
+                            w=w2;
+                            des(k)=2; % quality level
+                        else
                             w=w1;
+                            des(k)=1;% profile content
                         end
                         
                         if w==0 % if profiles are identical, delete the second
                             excl=[excl ind(k,2)];
+                            des(k)=3; % second
                         else % if not, delete the worst profile
                             excl=[excl ind(k,w)];
                         end
                     else % if they are far away delete both profiles (metadata uncertainty)
-                        excl=[excl ind(k,:)];                        
+                        excl=[excl ind(k,:)];
+                        des(k)=4; % both
                     end
-                else
-                    near(k)=NaN;                    
+                else % not duplicate
+                    near(k)=NaN;
+                    des(k)=NaN; 
                 end
-            else
-                conf(k,1)=0;
+                skip(k,1)=0;
+            else %skips pair if one member has been excluded already
+                conf(k,1)=NaN;
+                skip(k,1)=1;
+                des(k)=NaN; 
+                near(k)=NaN;
             end
         end
         
@@ -92,14 +105,15 @@ for i=1:numel(boxes)
         end
         
         % storing indices
+        SKI{i,j}=skip;
         IND{i,j}=ind;
-        if exist('conf','var')==1
-        CONF{i,j}=conf;NEAR{i,j}=near;
-        end
+        DES{i,j}=des;
+        NEAR{i,j}=near;
+        CONF{i,j}=conf;
         PERCT{i,j}=perc_t;
         PERCS{i,j}=perc_s;
-        clear perc* conf* near
         EXCL{i,j}=excl;
+        clear perc* conf* near skip excl des ind       
         
         disp('...')
         
@@ -109,4 +123,4 @@ for i=1:numel(boxes)
     diary off
 end
 output_label={'n probdup','n contdup','nearby','far','n profiles excluded'};
-save a4_results.mat boxes output* regions EXCL PER* IND CONF NEAR;
+save a3_results.mat boxes output* regions EXCL PER* IND CONF NEAR DES SKI;
