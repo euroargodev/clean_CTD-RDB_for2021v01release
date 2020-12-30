@@ -89,7 +89,7 @@ for i=1:numel(boxes)
         
         %end
         disp([num2str(n) ' probable cont duplicates'])
-        if exist('conf','var')==1
+        if isempty(conf)==0 || sum(conf)>0
             disp(['from which ' num2str(numel(find(conf==1))) ' are actually content duplicates'])
             disp('.')
             disp([num2str(numel(find(near==1 & conf==1))) ' were near to each other'])
