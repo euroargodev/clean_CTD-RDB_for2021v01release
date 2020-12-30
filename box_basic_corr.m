@@ -2,6 +2,9 @@ function [output,output_label]=box_basic_corr(rdb_path,box,outpath)
 %rdb_path='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\Datenbanken\Downloaded\IFREMER\CTD_for_DMQC_2019V01\';
 %box=7603;
 %outpath='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\';
+if ~exist(outpath, 'dir')
+    mkdir(outpath)
+end
 
 if isfile([rdb_path 'ctd_' num2str(box) '.mat'])
     disp('.')
