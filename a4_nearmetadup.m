@@ -45,8 +45,8 @@ for i=1:numel(boxes)
         for k=1:n
             %skips pair if one member has been excluded already
             if sum(ismember(ind(k,:),excl))==0
-                 % checks if the profile is deep content duplicate (at least 95% of match below 500 m) 
-                [perc_t(k,1),perc_s(k,1),conf(k,1)]=prof_compcontdeep(filein,ind(k,:),500,95);
+                 % checks if the profile is deep content duplicate (at least 95% match) 
+                [perc_t(k,1),perc_s(k,1),conf(k,1)]=prof_compcontdeep(filein,ind(k,:), 0,95);
                 if conf(k)==1 %if it is
                     % find the worst profile
                     w1=prof_comppc(filein,ind(k,:)); % profile content
