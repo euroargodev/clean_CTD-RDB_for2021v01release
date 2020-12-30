@@ -80,7 +80,7 @@ for i=1:numel(boxes)
         % delete the profiles in the list and summarize the outputs if
         % there are some profiles to delete. If not just copy the contents
         % to the outpath
-        if exist('conf','var')==1
+        if isempty(conf)==0 || sum(conf)>0
             disp(['from which ' num2str(numel(find(conf==1))) ' are also content duplicates'])
             disp(['and ' num2str(numel(find(conf==0))) ' had different contents'])
             disp([num2str(numel(excl)) ' profiles will be excluded'])
