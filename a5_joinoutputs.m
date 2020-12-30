@@ -32,10 +32,10 @@ for j=1:n
     
     % other midvalues (steps 2b-4d)
     data2=data(:,12)-data(:,16);
-    data3=data2-data(:,20);
+    data3=data2-data(:,21);
     data4=data3-data(:,25);
     % putting them together
-    data=[data(:,1:16) data2 data(:,17:20) data3 data(:,21:25) data4];
+    data=[data(:,1:16) data2 data(:,17:21) data3 data(:,22:25) data4];
     out{j,1}=data;
     clear data    
 end
@@ -43,7 +43,7 @@ end
 %% fixing labels
 label{11}=label{12};label{12}='1_end_n';
 
-label=[label(:,1:16) '2_end_n' label(:,17:20) '3_end_n' label(:,21:25) '4_end_n'];
+label=[label(:,1:16) '2_end_n' label(:,17:21) '3_end_n' label(:,22:25) '4_end_n'];
 % fixing labels
 label=strrep(label,'1','a');
 label=strrep(label,'2','b');
