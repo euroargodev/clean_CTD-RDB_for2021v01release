@@ -108,4 +108,4 @@ for i=1:numel(boxes)
     diary off
 end
 output_label={'n nmetadup','same content','different content',' n profiles excluded'};
-save a4_results.mat boxes output* regions EXCL PER* IND SKI CONF;
+save a4_results.mat boxes output* regions EXCL PER* IND SKI CONF DES;
