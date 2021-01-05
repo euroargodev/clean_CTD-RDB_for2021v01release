@@ -1,4 +1,4 @@
-function [w,wqcl,wsrc]=prof_compqc(filein,ind)
+function [w,wqcl,wsrc,d]=prof_compqc(filein,ind)
 % compare profile content
 data=extr_prof(filein,ind);
 
@@ -43,15 +43,15 @@ end
 
 w=[wqcl>0 isfinite(wsrc)];
 if sum(w==[0 1])==2
-    w=wsrc;
+    w=wsrc;d=2;
 elseif sum(w==[0 0])==2
-    w=0;
+    w=0;d=0;
 elseif sum(w==[1 0])==2 || sum(w==[1 NaN])==2
-    w=wqcl;
+    w=wqcl;d=1;
 elseif sum(w==[1 1])==2
     if wsrc==0
-        w=wqcl;
+        w=wqcl;d=1;
     else
-        w=wsrc;
+        w=wsrc;d=2;
     end
 end
