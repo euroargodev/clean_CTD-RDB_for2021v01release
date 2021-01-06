@@ -66,10 +66,11 @@ for i=1:numel(boxes)
                     else % if not, delete the worst profile
                         excl=[excl ind(k,w)];
                     end
+                    skip(k)=0;
                 else % not duplicate
                     des(k)=NaN; 
+                    skip(k)=1;
                 end
-                skip(k)=0;
             else %skips pair if one member has been excluded already
                 conf(k)=NaN;
                 des(k)=NaN;

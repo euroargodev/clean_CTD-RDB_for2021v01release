@@ -31,8 +31,7 @@ for i=1:numel(flist) % step
             % both were deleted
             ind(sum(excl,2)==0,:)=[];des(sum(excl,2)==0,:)=[];excl(sum(excl,2)==0,:)=[];
             ind(sum(excl,2)==2,:)=[];des(sum(excl,2)==2,:)=[];excl(sum(excl,2)==2,:)=[];
-            ind(sum(excl,2)==0,:)=[];des(sum(excl,2)==0,:)=[];excl(sum(excl,2)==0,:)=[];
-            
+
             NP=size(ind,1);
             if NP>0
                 % boxfile
