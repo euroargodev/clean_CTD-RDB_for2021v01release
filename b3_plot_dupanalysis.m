@@ -139,17 +139,3 @@ if exist('qckeptx','var')
     boxn=vertcat(boxnx{:});
     clear *x
 end
-
-%clearvars -except qckept qcexcluded crit* comb indkept indexcluded boxn step
-
-% plot_profpair(data,excl)
-% excl=ismember(ind,EXCL);
-% plot_profpair(data,excl)
-% plot_dup
-% plot_dup(2,7605)
-% plot_profpair(data,excl)
-% plot_dup(2,7605)
-% plot_profpair(data,excl)
-% plot_dup(3,1701)
-% load('a3_results.mat')
-% plot_dup(3,1701)
