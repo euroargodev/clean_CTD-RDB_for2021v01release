@@ -1,7 +1,11 @@
-function plot_profpair(data,acc)
-if nargin<2
-    acc=[0 0];
+function plot_profpair(data,acc,extr)
+if nargin<3
+   extr=[];
 end
+if nargin<2
+    acc=[0 0];    
+end
+
 figure('color','w','position',[344  118  862  420])
 set(gcf,'color','w')
 subplot(1,3,2)
@@ -31,13 +35,20 @@ for i=1:2
     info{6,i}=strrep(data.source{i},'_',' ');
     info{7,i}=data.qclevel{i};
     if sum(acc)>0
+        nv=8;
         varNames{8}='Excluded';
         if acc(i)==1
             info{8,i}='yes';
         else
             info{8,i}='no';
         end
+    else
+        nv=7;
     end
+end
+if isempty(extr)==0
+    varNames=[varNames extr.varNames];
+    info=[info; extr.info];
 end
 TString=getTstring(info,varNames);
 annotation(gcf,'Textbox','String',TString,'Interpreter','Tex',...
