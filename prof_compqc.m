@@ -1,4 +1,5 @@
-function [w,wqcl,wsrc,d]=prof_compqc(filein,ind)
+function [w,wqcl,wsrc,d,dlabel]=prof_compqc(filein,ind)
+dlabel={'qclevel','source'};
 % compare profile content
 data=extr_prof(filein,ind);
 
