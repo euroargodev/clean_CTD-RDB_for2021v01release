@@ -40,7 +40,7 @@ for i=1:numel(boxes)
         % preallocating vars
         excl=[];
         perc_t=zeros(n,1);perc_s=zeros(n,1);conf=zeros(n,1);
-        skip=zeros(n,1);des=zeros(n,1);near=zeros(n,1);
+        skip=zeros(n,1);des=zeros(n,1);des2=zeros(n,1);near=zeros(n,1);
         % for each pair
         for k=1:n
             %skips pair if one member has been excluded already
@@ -53,37 +53,44 @@ for i=1:numel(boxes)
                     near(k)=prof_compnear(filein,ind(k,:),3,3);
                     if near(k)==1 % if they are
                         % find the worst profile
-                        w1=prof_comppc(filein,ind(k,:)); % profile content
-                        w2=prof_compqc(filein,ind(k,:)); % profile qclevel/source
+                        [w1,d1,dlabel1]=prof_comppc(filein,ind(k,:)); % profile content
+                        [w2,~,~,d2,dlabel2]=prof_compqc(filein,ind(k,:)); % profile qclevel/source
                         % find worst profile giving preference to the content
                         if w1==0
                             w=w2;
                             des(k)=2; % quality level
+                            des2(k)=d2;
                         else
                             w=w1;
                             des(k)=1;% profile content
+                            des2(k)=d1;
                         end
                         
                         if w==0 % if profiles are identical, delete the second
                             excl=[excl ind(k,2)];
                             des(k)=3; % second
+                            des2(k)=NaN;
                         else % if not, delete the worst profile
                             excl=[excl ind(k,w)];
                         end
                     else % if they are far away delete both profiles (metadata uncertainty)
                         excl=[excl ind(k,:)];
                         des(k)=4; % both
+                        des2(k)=NaN;
                     end
                 else % not duplicate
                     near(k)=NaN;
                     des(k)=NaN; 
+                    des2(k)=NaN;
+                    skip(k,1)=1;
                 end
-                skip(k,1)=0;
+                
             else %skips pair if one member has been excluded already
                 conf(k,1)=NaN;
                 skip(k,1)=1;
                 des(k)=NaN; 
                 near(k)=NaN;
+                des2(k)=NaN;
             end
         end
         
@@ -108,12 +115,13 @@ for i=1:numel(boxes)
         SKI{i,j}=skip;
         IND{i,j}=ind;
         DES{i,j}=des;
+        DES2{i,j}=des2;
         NEAR{i,j}=near;
         CONF{i,j}=conf;
         PERCT{i,j}=perc_t;
         PERCS{i,j}=perc_s;
         EXCL{i,j}=excl;
-        clear perc* conf* near skip excl des ind       
+        clear perc* conf* near skip excl des ind des2      
         
         disp('...')
         
@@ -123,4 +131,4 @@ for i=1:numel(boxes)
     diary off
 end
 output_label={'n probdup','n contdup','nearby','far','n profiles excluded'};
-save a3_results.mat boxes output* regions EXCL PER* IND CONF NEAR DES SKI;
+save a3_results.mat boxes output* regions EXCL PER* IND CONF NEAR DES* SKI dlabel*

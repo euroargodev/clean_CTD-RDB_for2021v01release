@@ -40,7 +40,7 @@ for i=1:numel(boxes)
         % preallocating vars
         excl=[];
         perc_t=zeros(n,1);perc_s=zeros(n,1);conf=zeros(n,1);
-        skip=zeros(n,1);des=zeros(n,1);
+        skip=zeros(n,1);des=zeros(n,1);des2=zeros(n,1);
         % for each pair
         for k=1:n
             %skips pair if one member has been excluded already
@@ -49,31 +49,36 @@ for i=1:numel(boxes)
                 [perc_t(k,1),perc_s(k,1),conf(k,1)]=prof_compcontdeep(filein,ind(k,:), 0,95);
                 if conf(k)==1 %if it is
                     % find the worst profile
-                    w1=prof_comppc(filein,ind(k,:)); % profile content
-                    w2=prof_compqc(filein,ind(k,:)); % profile qclevel/source
+                    [w1,d1,dlabel1]=prof_comppc(filein,ind(k,:)); % profile content
+                    [w2,~,~,d2,dlabel2]=prof_compqc(filein,ind(k,:)); % profile qclevel/source
                     % find worst profile giving preference to the content
-                    if w1==0
+                     if w1==0
                         w=w2;
                         des(k)=2; % quality level
+                        des2(k)=d2;
                     else
                         w=w1;
                         des(k)=1;% profile content
+                        des2(k)=d1;
                     end
                     
                     if w==0 % if profiles are identical, delete the second
                         excl=[excl ind(k,2)];
                          des(k)=3; % second
+                          des2(k)=NaN;
                     else % if not, delete the worst profile
                         excl=[excl ind(k,w)];
                     end
                     skip(k)=0;
                 else % not duplicate
                     des(k)=NaN; 
+                    des2(k)=NaN; 
                     skip(k)=1;
                 end
             else %skips pair if one member has been excluded already
                 conf(k)=NaN;
                 des(k)=NaN;
+                des2(k)=NaN;
                 skip(k)=1;
             end
         end
@@ -98,6 +103,7 @@ for i=1:numel(boxes)
         SKI{i,j}=skip;
         IND{i,j}=ind;
         DES{i,j}=des;
+        DES2{i,j}=des2;
         CONF{i,j}=conf;
         PERCT{i,j}=perc_t;
         PERCS{i,j}=perc_s;
@@ -109,4 +115,4 @@ for i=1:numel(boxes)
     diary off
 end
 output_label={'n nmetadup','same content','different content',' n profiles excluded'};
-save a4_results.mat boxes output* regions EXCL PER* IND SKI CONF DES;
+save a4_results.mat boxes output* regions EXCL PER* IND SKI CONF DES* dlabel* 
