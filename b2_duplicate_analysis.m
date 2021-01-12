@@ -1,5 +1,6 @@
 clear variables;close all;
-flist=dir('*_results.mat');
+outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\'
+flist=dir([outp '*_results.mat']);
 % select only results from duplicate checks
 flist=flist(2:4);
 
@@ -8,14 +9,13 @@ load(flist(1).name,'boxes','regions')
 n=numel(regions);
 
 % data path
-inp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\';
-F_xls=sprintf('keepduplicate.xlsx');
+F_xls=sprintf([outp 'keepduplicate.xlsx']);
 for i=1:numel(flist) % step   
     tic
     load(flist(i).name,'DES','EXCL','IND','SKI')
     for j=1:n %region
         disp(regions{j})
-        ipath=[inp 'A' num2str(str2double(flist(i).name(2))-1) '\' regions{j} '\'];
+        ipath=[outp 'A' num2str(str2double(flist(i).name(2))-1) '\' regions{j} '\'];
         b=boxes{j}';N=numel(b);
         for k=1:N % each box
             disp(['box ' num2str(k) ' from ' num2str(N)])

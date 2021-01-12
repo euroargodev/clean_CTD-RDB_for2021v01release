@@ -5,8 +5,8 @@ clear variables
 load regions.mat
 %% Basic corrections
 
-rdb_path='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\Datenbanken\Downloaded\IFREMER\CTD_for_DMQC_2019V01\';
-outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\A1\';
+out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\'
+outp=[out 'A1\'];
 
 %for each region
 for i=1:numel(boxes)
@@ -26,9 +26,10 @@ for i=1:numel(boxes)
     boxlist=boxes{i};
     for j=1:numel(boxlist)        
         box=boxlist(j);
-        [output{i}(j,:),output_label]=box_basic_corr(rdb_path,box,outpath);        
+        inpath=spath{find(boxesmat==box)};
+        [output{i}(j,:),output_label]=box_basic_corr(inpath,box,outpath);        
     end 
     disp('---------------------------------------------------')
     diary off
 end
-save a1_results.mat boxes output regions output*;
+save([out 'a1_results.mat'],'boxes','output*','regions');

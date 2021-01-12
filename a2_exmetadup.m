@@ -3,14 +3,15 @@
 clear variables
 load regions.mat
 %% Exact metadata duplicates
+out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
+outp=[out 'A2\'];
+inp=[out 'A1\'];
 
-outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\A2\';
-inp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\A1\';
 % create output folder if does not exist
 if ~exist(outp, 'dir')
     mkdir(outp)
 end
-%for each region
+for each region
 for i=1:numel(boxes)
     
     % get/ create paths
@@ -38,8 +39,11 @@ for i=1:numel(boxes)
         % preallocating vars
         perc_t=zeros(n,1);perc_s=zeros(n,1);conf=zeros(n,1);
         skip=zeros(n,1);des=zeros(n,1);des2=zeros(n,1);
-        % for each pair
+        disp([num2str(n) ' exact metadata duplicates'])
+		diary off
+		% for each pair
         for k=1:n
+            showporc(k,n,10)
             %skips pair if one member has been excluded already
             if sum(ismember(ind(k,:),excl))==0
                 % checks if the profile is content duplicate
@@ -80,21 +84,21 @@ for i=1:numel(boxes)
                 des2(k)=NaN;
             end
         end
-        
+        diary on
         % delete the profiles in the list and summarize the outputs if
         % there are some profiles to delete. If not just copy the contents
         % to the outpath
-        disp([num2str(n) ' exact metadata duplicates'])
+        
         if isempty(conf)==0 || sum(conf)>0
             disp(['from which ' num2str(numel(find(conf==1))) ' are also content duplicates'])
             disp(['and ' num2str(numel(find(conf==0))) ' had different contents'])
             disp([num2str(numel(excl)) ' profiles will be excluded'])
             output{i}(j,:)=[n numel(find(conf==1)) numel(find(conf==0)) numel(excl)];
-            box_excl(inpath,box,excl,outpath)
+            %box_excl(inpath,box,excl,outpath)
         else
             output{i}(j,:)=[n NaN NaN NaN];
             if isfile([inpath 'ctd_' num2str(box) '.mat'])
-                box_copy(inpath,box,outpath)
+             %   box_copy(inpath,box,outpath)
             end
         end
         
@@ -115,4 +119,4 @@ for i=1:numel(boxes)
     diary off
 end
 output_label={'n emetadup','same content','different content',' n profiles excluded'};
-save a2_results.mat boxes output* regions EXCL PERC* IND CONF DES* SKI dlabel*
+save([out 'a2_results.mat'],'boxes','output*','regions','EXCL','PERC*','IND','CONF','DES*','SKI','dlabel*')

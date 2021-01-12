@@ -31,11 +31,11 @@ if isempty(box)
 end
 
 % loading results
-fname=['a' num2str(step) '_results.mat'];
+inp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
+fname=[inp 'a' num2str(step) '_results.mat'];
 load(fname,'DES','EXCL','IND','SKI')
 
 % ctd data path
-inp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\';
 inp=[inp 'A' num2str(step-1) '\'];
 
 % loop box

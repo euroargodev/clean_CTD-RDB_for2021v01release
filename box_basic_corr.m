@@ -18,11 +18,18 @@ if isfile([rdb_path 'ctd_' num2str(box) '.mat'])
     % 2. Remove profiles
     [ind, output2]=box_cleanprofiles(outpath,box,outpath);
     
-    % 3. If more than 10000 profiles
+    % 3. If none or more than 10000 profiles
     filename=['ctd_' num2str(box)];
     load([outpath filename],'dates')
     n=numel(dates);
     disp(['Box has ' num2str(n) ' profiles'])
+    
+    if n==0 % if box is empty, remove it
+       delete([outpath filename])
+       disp(['Empty box was deleted'])
+    end
+    % if has too many profiles
+    
     if n>10000
         excl=find(dates<19950000000000);
         box_excl(outpath,box,excl,outpath)

@@ -6,8 +6,9 @@ clear variables
 load regions.mat
 %% Content duplicates
 
-outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\A3\';
-inp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\A2\';
+out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\'
+outp=[out 'A3\'];
+inp=[out 'A2\'];
 % create output folder if does not exist
 if ~exist(outp, 'dir')
     mkdir(outp)
@@ -41,8 +42,12 @@ for i=1:numel(boxes)
         excl=[];
         perc_t=zeros(n,1);perc_s=zeros(n,1);conf=zeros(n,1);
         skip=zeros(n,1);des=zeros(n,1);des2=zeros(n,1);near=zeros(n,1);
-        % for each pair
-        for k=1:n
+		
+		disp([num2str(n) ' probable cont duplicates'])
+		diary off
+		% for each pair
+		for k=1:n
+		    showporc(k,n,10)
             %skips pair if one member has been excluded already
             if sum(ismember(ind(k,:),excl))==0
                 % checks if the profile is content duplicate
@@ -95,7 +100,7 @@ for i=1:numel(boxes)
         end
         
         %end
-        disp([num2str(n) ' probable cont duplicates'])
+        diary on
         if isempty(conf)==0 || sum(conf)>0
             disp(['from which ' num2str(numel(find(conf==1))) ' are actually content duplicates'])
             disp('.')
@@ -131,4 +136,4 @@ for i=1:numel(boxes)
     diary off
 end
 output_label={'n probdup','n contdup','nearby','far','n profiles excluded'};
-save a3_results.mat boxes output* regions EXCL PER* IND CONF NEAR DES* SKI dlabel*
+save([out 'a3_results.mat'],'boxes','output*','regions','EXCL','PERC*','IND','CONF','DES*','SKI','dlabel*','NEAR')

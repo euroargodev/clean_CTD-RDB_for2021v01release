@@ -1,5 +1,5 @@
 addpath '\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CodeProjects\matlab_toolboxes\m_map'
-addpath '\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CodeProjects\imab'
+addpath(genpath('\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CodeProjects\imab\'))
 addpath '\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CodeProjects\check_CTD-RDB'
 addpath '\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CodeProjects\matlab_toolboxes\export_fig'
 %%
@@ -26,16 +26,47 @@ end
 
 save regions.mat boxes regions boxesmat regionsmat
 
-%% plot regions
-cmp=hsv(8);
-for i=1:8
-    if i==1
-        pl=1;
-    else
-        pl =2;
-    end
-    clr=cmp(i,:);
-    plot_wmoboxes(boxes{i},clr,pl)
+
+%% sources (mat file paths for the "base")
+spath=cell(size(boxesmat));
+
+%rebuilt NS 
+s{1}=[1700 7600 7701];
+f=find(ismember(boxesmat,s{1})==1);
+bpath{1}='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\CTD_for_2019\wmo_boxes\rebuilt\';
+for i=1:numel(f)
+spath{f(i)}=bpath{1};
 end
-saveas(gcf,'region_def.fig')
-export_fig -r300 region_def.png
+
+% rest NS 2018
+s{2}=setdiff([1600   1601    1700	1701	1702	1800	1801	1802	7600 ...	
+     7601    7602   7700    7701    7702    7800    7801    7802],s{1});
+f=find(ismember(boxesmat,s{2})==1);
+bpath{2}='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\CTD_for_2019\wmo_boxes\ifremer_2018v2\';
+for i=1:numel(f)
+spath{f(i)}=bpath{2};
+end
+
+% 2019 all
+ball=boxesmat(:);ball(isnan(ball))=[];
+s{3}=setdiff(setdiff(ball,s{1}),s{2});
+f=find(ismember(boxesmat,s{3})==1);
+bpath{3}='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\Datenbanken\Downloaded\IFREMER\CTD_for_DMQC_2019V01\';
+for i=1:numel(f)
+spath{f(i)}=bpath{3};
+end
+
+save regions.mat boxes regions boxesmat regionsmat spath
+%% plot regions
+% cmp=hsv(8);
+% for i=1:8
+%     if i==1
+%         pl=1;
+%     else
+%         pl =2;
+%     end
+%     clr=cmp(i,:);
+%     plot_wmoboxes(boxes{i},clr,pl)
+% end
+% saveas(gcf,'region_def.fig')
+% export_fig -r300 region_def.png

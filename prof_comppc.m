@@ -11,7 +11,7 @@ vres=round(RP./sum(isfinite(data.pres),1),1);
 % gaps
 mgap=max(diff(data.pres,1,1),[],1);
 % vs. sample distance
-sd=1/vres;
+sd=1./vres;
 if mgap(1)<5*sd(1)
     mgap(1)=NaN;
 end

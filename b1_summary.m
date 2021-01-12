@@ -1,5 +1,6 @@
 clear variables;close all;
-flist=dir('*_results.mat');
+outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\'
+flist=dir([outp '*_results.mat']);
 
 label=[];
 % get all labels
@@ -53,7 +54,7 @@ label=strrep(label,'4','d');
 %% Write to xls file
 
 % all results
-F_xlsx=sprintf('results.xlsx');
+F_xlsx=sprintf([outp 'results.xlsx']);
 a=cell2mat(out);
 % all
 T = array2table(a,'VariableNames',label);
@@ -64,7 +65,7 @@ for j=1:n
 end
 
 % Compact results
-F_xlsx=sprintf('results_compact.xlsx');
+F_xlsx=sprintf([outp 'results_compact.xlsx']);
 ind=[1	2	10	11	13	16	19	22	24	27	28];
 T = array2table(a(:,ind),'VariableNames',label(ind));
 writetable(T,F_xlsx,'Sheet','all');
@@ -74,7 +75,7 @@ for j=1:n
 end
 
 % Boxes to check (possible errors)
-F_xlsx=sprintf('boxes_to_check.xlsx');
+F_xlsx=sprintf([outp 'boxes_to_check.xlsx']);
 ind=[1	8  15  21];
 % all regions
 T = array2table([a(:,ind) sum(a(:,[8 15 21]),2)],'VariableNames',{'box','profiles too shallow','meta dup pairs - different contents','content dup pairs - far away','total wrong prof'});
@@ -84,7 +85,7 @@ writetable(Ts,F_xlsx,'Sheet','all');
 %% Effectiveness of the probable content duplicate step (a3)
 % Assuming that all content duplicates were found (upper bound of how good
 % is this way to discover them, and a lower bound of the missing rate)
-F_xlsx=sprintf('probable_contentdup.xlsx');
+F_xlsx=sprintf([outp 'probable_contentdup.xlsx']);
 ind=[1	18  19  25];
 % all regions
 T = array2table([a(:,ind) sum(a(:,[19 25]),2) a(:,25)./sum(a(:,[19 25]),2)],...
@@ -97,7 +98,7 @@ clearvars -except flist boxes n
 % select only results from duplicate checks
 flist=flist(2:4);
 %
-F_xlsx='results_duplicatedes.xlsx';
+F_xlsx=sprintf([outp 'results_duplicatedes.xlsx']);
 for i=1:numel(flist)
     load(flist(i).name,'DES')
     data=[];  

@@ -4,8 +4,10 @@ clear variables
 load regions.mat
 %% Near metadata duplicates
 
-outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\A4\';
-inp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\A3\';
+out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\'
+outp=[out 'A4\'];
+inp=[out 'A3\'];
+
 % create output folder if does not exist
 if ~exist(outp, 'dir')
     mkdir(outp)
@@ -41,8 +43,12 @@ for i=1:numel(boxes)
         excl=[];
         perc_t=zeros(n,1);perc_s=zeros(n,1);conf=zeros(n,1);
         skip=zeros(n,1);des=zeros(n,1);des2=zeros(n,1);
+		
+		diary off
+		
         % for each pair
         for k=1:n
+		    showporc(k,n,10)
             %skips pair if one member has been excluded already
             if sum(ismember(ind(k,:),excl))==0
                  % checks if the profile is deep content duplicate (at least 95% match) 
@@ -82,7 +88,7 @@ for i=1:numel(boxes)
                 skip(k)=1;
             end
         end
-        
+        diary on
         % delete the profiles in the list and summarize the outputs if
         % there are some profiles to delete. If not just copy the contents
         % to the outpath
@@ -115,4 +121,4 @@ for i=1:numel(boxes)
     diary off
 end
 output_label={'n nmetadup','same content','different content',' n profiles excluded'};
-save a4_results.mat boxes output* regions EXCL PER* IND SKI CONF DES* dlabel* 
+save([out 'a4_results.mat'],'boxes','output*','regions','EXCL','PERC*','IND','CONF','DES*','SKI','dlabel*','NEAR')
