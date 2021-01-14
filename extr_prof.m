@@ -24,9 +24,10 @@ nvar=numel(var_list);
 if isempty(ind)==0
     for i=1:nvar
         eval(['load ' filein ' ' var_list(i).name])
-        if var_list(i).size(1) ==1
+        if var_list(i).size(1) ==1 && strcmp(var_list(i).class,'char')==0
             eval(['tmp=' var_list(i).name '(ind);' ])
             eval(['data.' var_list(i).name '=tmp;']);
+        elseif strcmp(var_list(i).class,'char')
         else
             eval(['tmp=' var_list(i).name '(:,ind);' ])
             eval(['data.' var_list(i).name '=tmp;']);
