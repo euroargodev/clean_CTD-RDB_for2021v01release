@@ -1,11 +1,11 @@
 clear variables;close all;
-outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\'
+outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
 flist=dir([outp '*_results.mat']);
 
 label=[];
 % get all labels
 for i=1:numel(flist)
-    load(flist(i).name,'output_label')
+    load([outp flist(i).name],'output_label')
     for k=1:numel(output_label)
         output_label{k}=[num2str(i) '_' output_label{k}];
     end
@@ -14,7 +14,7 @@ end
 label={'boxes', label{:}}; %#ok<CCAT>
 
 % load regions and boxes
-load(flist(i).name,'boxes','regions')
+load([outp flist(i).name],'boxes','regions')
 
 n=numel(regions);
 
@@ -22,7 +22,7 @@ n=numel(regions);
 for j=1:n
     data=boxes{j}';
     for i=1:numel(flist)
-        load(flist(i).name,'output')
+        load([outp flist(i).name],'output')
         data=[data output{j}];
     end
     data(isnan(data))=0;
@@ -34,9 +34,9 @@ for j=1:n
     % other midvalues (steps 2b-4d)
     data2=data(:,12)-data(:,16);
     data3=data2-data(:,21);
-    data4=data3-data(:,25);
+   % data4=data3-data(:,25);
     % putting them together
-    data=[data(:,1:16) data2 data(:,17:21) data3 data(:,22:25) data4];
+    data=[data(:,1:16) data2 data(:,17:21) data3]; % data(:,22:25) data4];
     out{j,1}=data;
     clear data
 end
@@ -44,17 +44,17 @@ end
 %% fixing labels
 label{11}=label{12};label{12}='1_end_n';
 
-label=[label(:,1:16) '2_end_n' label(:,17:21) '3_end_n' label(:,22:25) '4_end_n'];
+label=[label(:,1:16) '2_end_n' label(:,17:21) '3_end_n'];% label(:,22:25) '4_end_n'];
 % fixing labels
-label=strrep(label,'1','a');
-label=strrep(label,'2','b');
-label=strrep(label,'3','c');
-label=strrep(label,'4','d');
+label=strrep(label,'1','s1');
+label=strrep(label,'2','s2');
+label=strrep(label,'3','s3');
+%label=strrep(label,'4','d');
 
 %% Write to xls file
 
 % all results
-F_xlsx=sprintf([outp 'results.xlsx']);
+F_xlsx=[outp 'results.xlsx'];
 a=cell2mat(out);
 % all
 T = array2table(a,'VariableNames',label);
@@ -65,8 +65,8 @@ for j=1:n
 end
 
 % Compact results
-F_xlsx=sprintf([outp 'results_compact.xlsx']);
-ind=[1	2	10	11	13	16	19	22	24	27	28];
+F_xlsx=[outp 'results_compact.xlsx'];
+ind=[1	2	10	11	13	16	19	22];%	24	27	28];
 T = array2table(a(:,ind),'VariableNames',label(ind));
 writetable(T,F_xlsx,'Sheet','all');
 for j=1:n
@@ -75,32 +75,24 @@ for j=1:n
 end
 
 % Boxes to check (possible errors)
-F_xlsx=sprintf([outp 'boxes_to_check.xlsx']);
+F_xlsx=[outp 'boxes_to_check.xlsx'];
 ind=[1	8  15  21];
 % all regions
 T = array2table([a(:,ind) sum(a(:,[8 15 21]),2)],'VariableNames',{'box','profiles too shallow','meta dup pairs - different contents','content dup pairs - far away','total wrong prof'});
 Ts = sortrows(T,'total wrong prof','descend');
 writetable(Ts,F_xlsx,'Sheet','all');
 
-%% Effectiveness of the probable content duplicate step (a3)
-% Assuming that all content duplicates were found (upper bound of how good
-% is this way to discover them, and a lower bound of the missing rate)
-F_xlsx=sprintf([outp 'probable_contentdup.xlsx']);
-ind=[1	18  19  25];
-% all regions
-T = array2table([a(:,ind) sum(a(:,[19 25]),2) a(:,25)./sum(a(:,[19 25]),2)],...
-    'VariableNames',{'box','a3 probable cont. dup','a3 cont. dup.','a4 cont. dup.','total cont. dup.','missed fraction'});
-Ts = sortrows(T,'missed fraction','ascend');
-writetable(Ts,F_xlsx,'Sheet','all');
-
 %% Duplicate decision analysis
 clearvars -except flist boxes n
+outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
+
 % select only results from duplicate checks
-flist=flist(2:4);
+flist=dir([outp '*_results.mat']);
+flist=flist(2:3);%4);
 %
-F_xlsx=sprintf([outp 'results_duplicatedes.xlsx']);
+F_xlsx=[outp 'results_duplicatedes.xlsx'];
 for i=1:numel(flist)
-    load(flist(i).name,'DES')
+    load([outp flist(i).name],'DES')
     data=[];  
     for j=1:n %each region
         b=boxes{j}';N=numel(b);

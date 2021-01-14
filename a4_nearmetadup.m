@@ -4,7 +4,7 @@ clear variables
 load regions.mat
 %% Near metadata duplicates
 
-out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\'
+out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
 outp=[out 'A4\'];
 inp=[out 'A3\'];
 
@@ -52,7 +52,7 @@ for i=1:numel(boxes)
             %skips pair if one member has been excluded already
             if sum(ismember(ind(k,:),excl))==0
                  % checks if the profile is deep content duplicate (at least 95% match) 
-                [perc_t(k,1),perc_s(k,1),conf(k,1)]=prof_compcontdeep(filein,ind(k,:), 0,95);
+                [perc_t(k,1),perc_s(k,1),conf(k,1)]=prof_compcontdeep(filein,ind(k,:),0,95);
                 if conf(k)==1 %if it is
                     % find the worst profile
                     [w1,d1,dlabel1]=prof_comppc(filein,ind(k,:)); % profile content
@@ -121,4 +121,4 @@ for i=1:numel(boxes)
     diary off
 end
 output_label={'n nmetadup','same content','different content',' n profiles excluded'};
-save([out 'a4_results.mat'],'boxes','output*','regions','EXCL','PERC*','IND','CONF','DES*','SKI','dlabel*','NEAR')
+save([out 'a4_results.mat'],'boxes','output*','regions','EXCL','PERC*','IND','CONF','DES*','SKI','dlabel*')
