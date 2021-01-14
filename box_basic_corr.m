@@ -1,4 +1,4 @@
-function [output,output_label]=box_basic_corr(rdb_path,box,outpath)
+function [output,output_label,ind]=box_basic_corr(rdb_path,box,outpath)
 %rdb_path='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\Datenbanken\Downloaded\IFREMER\CTD_for_DMQC_2019V01\';
 %box=7603;
 %outpath='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\';
@@ -31,12 +31,13 @@ if isfile([rdb_path 'ctd_' num2str(box) '.mat'])
     % if has too many profiles
     
     if n>10000
-        excl=find(dates<19950000000000);
-        box_excl(outpath,box,excl,outpath)
-        disp(['Older ' num2str(numel(excl)) ' profiles excluded, since the box had ' ...
+        ind{4,1}=find(dates<19950000000000);
+        box_excl(outpath,box,ind{4},outpath)
+        disp(['Older ' num2str(numel(ind{4})) ' profiles excluded, since the box had ' ...
             'more than 10000 profiles'])
-        output3=[n numel(excl)];
+        output3=[n numel(ind{4})];
     else
+        ind{4,1}=[];
         output3=[n 0];
     end
     output=[output1 output2 output3];
@@ -45,6 +46,7 @@ else
     disp('.')
     disp(['Box ' num2str(box) ' does not exist'])
     output=nan(1,11);
+    ind=cell(4,1);
 end
 
 output_label={'initial n','out T','out S','incompl. samples','incompl. prof','out box','shallow','NMIP','excl. prof','total n','extra rem'};

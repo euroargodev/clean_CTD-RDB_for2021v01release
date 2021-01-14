@@ -5,7 +5,7 @@ clear variables
 load regions.mat
 %% Basic corrections
 
-out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\'
+out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
 outp=[out 'A1\'];
 
 %for each region
@@ -27,9 +27,10 @@ for i=1:numel(boxes)
     for j=1:numel(boxlist)        
         box=boxlist(j);
         inpath=spath{find(boxesmat==box)};
-        [output{i}(j,:),output_label]=box_basic_corr(inpath,box,outpath);        
+        [output{i}(j,:),output_label,EXCL{i,j}]=box_basic_corr(inpath,box,outpath);        
+        EXCL_all{i,j}=cell2mat(EXCL{i,j}');
     end 
     disp('---------------------------------------------------')
     diary off
 end
-save([out 'a1_results.mat'],'boxes','output*','regions');
+save([out 'a1_results.mat'],'boxes','output*','regions','EXCL*');
