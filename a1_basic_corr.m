@@ -27,8 +27,12 @@ for i=1:numel(boxes)
     for j=1:numel(boxlist)        
         box=boxlist(j);
         inpath=spath{find(boxesmat==box)};
-        [output{i}(j,:),output_label,EXCL{i,j}]=box_basic_corr(inpath,box,outpath);        
-        EXCL_all{i,j}=cell2mat(EXCL{i,j}');
+        [output{i}(j,:),output_label,EXCL{i,j}]=box_basic_corr(inpath,box,outpath);
+        if sum(cellfun(@isempty,EXCL{i,j}))==4
+            EXCL_all{i,j}=[];
+        else
+            EXCL_all{i,j}=cell2mat(EXCL{i,j}');
+        end
     end 
     disp('---------------------------------------------------')
     diary off

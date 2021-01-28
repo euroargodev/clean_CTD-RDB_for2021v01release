@@ -27,22 +27,34 @@ end
 [lon_pts,lat_pts]=corners(lonlims,latlims);
 in=inpolygon(long,lat,lon_pts,lat_pts);
 ind{1,1}=find(in==0);
+if isempty(ind{1,1})
+    ind{1,1}=[];
+end
 disp(['  ' num2str(numel(ind{1})) ' profiles out of the box ...'])
 
 
 % B. Get shallow MRP
 MRP=max(pres,[],1);
-ind{2,1}=find(MRP<900);
+ind{2,1}=union(find(MRP<900),find(isnan(MRP)==1));
+if isempty(ind{2,1})
+    ind{2,1}=[];
+end
 disp(['  ' num2str(numel(ind{2})) ' profiles shallower than 900 db ...'])
 
 % C. Get profiles with non-monotonically increasing pressure (NMIP)
 % Check for columns containing more than one profile
 [il,ic]=find((diff(pres,[],1))<0);
 ind{3,1}=unique(ic)';
+if isempty(ind{1,1})
+    ind{3,1}=[];
+end
 disp(['  ' num2str(numel(ind{3})) ' profiles with non-monotonically increasing pressure ...'])
 
 % getting profiles to be deleted
 excl=union(union(ind{1},ind{2}),ind{3});
+if isempty(excl)
+    excl=[];
+end
 
 if numel(excl)>0
     if nargin<3

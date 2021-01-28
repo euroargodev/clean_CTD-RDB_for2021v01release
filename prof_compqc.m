@@ -7,7 +7,7 @@ else
     % compare profile content
     data=extr_prof(filein,ind);
     
-    qc={'OGS','SPI','CCH','GSH','UDASH','COR:ICES','OCL','COR','ICE'};
+    qc={'SPI','CCH','GSH','UDASH','COR:ICES','OCL','COR','ICE'};
     
     for i=1:2
         qcl(i)=find(strcmp(data.qclevel(i),qc)==1);

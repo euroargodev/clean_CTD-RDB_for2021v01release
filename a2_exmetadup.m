@@ -94,11 +94,11 @@ for i=1:numel(boxes)
             disp(['and ' num2str(numel(find(conf==0))) ' had different contents'])
             disp([num2str(numel(excl)) ' profiles will be excluded'])
             output{i}(j,:)=[n numel(find(conf==1)) numel(find(conf==0)) numel(excl)];
-            %box_excl(inpath,box,excl,outpath)
+            box_excl(inpath,box,excl,outpath)
         else
             output{i}(j,:)=[n NaN NaN NaN];
             if isfile([inpath 'ctd_' num2str(box) '.mat'])
-             %   box_copy(inpath,box,outpath)
+               box_copy(inpath,box,outpath)
             end
         end
         
