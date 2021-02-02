@@ -1,5 +1,5 @@
 clear variables;close all;
-indir='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
+indir='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\';
 flist=dir([indir '*_results.mat']);
 
 label=[];

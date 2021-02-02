@@ -34,7 +34,7 @@ if isempty(box)
 end
 
 % data path
-inp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
+inp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\';
 
 % loading results
 fname=[inp 'a' num2str(step) '_results.mat'];

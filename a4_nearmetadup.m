@@ -4,7 +4,7 @@ clear variables
 load regions.mat
 %% Near metadata duplicates
 
-out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
+out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\';
 outp=[out 'A4\'];
 inp=[out 'A3\'];
 

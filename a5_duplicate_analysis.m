@@ -1,6 +1,6 @@
 %% Duplicate analysis
 clear variables;close all;
-outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
+outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\';
 flist=dir([outp '*_results.mat']);
 % select only results from duplicate checks
 flist=flist(2:3);
@@ -66,7 +66,7 @@ for i=1:numel(flist) % step
                     indexcludedx{k,1}=[];
                     boxnx{k,1}=[];
                 end
-                % T = table(LastName,Age,Smoker,Height,Weight,BloodPressure)
+                %T = table(LastName,Age,Smoker,Height,Weight,BloodPressure)
                 %plot_profpair(data,excl(l,:))
             end
         end

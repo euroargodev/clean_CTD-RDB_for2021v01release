@@ -3,7 +3,7 @@
 clear variables
 load regions.mat
 %% Exact metadata duplicates
-out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
+out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\';
 outp=[out 'A2\'];
 inp=[out 'A1\'];
 
@@ -11,7 +11,7 @@ inp=[out 'A1\'];
 if ~exist(outp, 'dir')
     mkdir(outp)
 end
-for each region
+%for each region
 for i=1:numel(boxes)
     
     % get/ create paths

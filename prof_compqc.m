@@ -28,7 +28,11 @@ else
         for ii=1:numel(fices)
             s=data.source(fices(ii));
             s=strsplit(s{1},'_');
-            s2=s{3};
+            if numel(s)==3
+                s2=s{3};
+            elseif numel(s)==1
+                s2=s{1};
+            end
             data.source{fices(ii)}=s2;
         end
     end

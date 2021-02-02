@@ -1,7 +1,7 @@
 clear variables
 %% Extract info and getting original indices
 % A1/ Shallow profiles
-out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
+out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\';
 outp=[out 'A1\'];
 load([out 'a1_results.mat'])
 

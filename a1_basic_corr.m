@@ -4,8 +4,8 @@ addpath '\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CodeProjects\i
 clear variables
 load regions.mat
 %% Basic corrections
-
-out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
+inpath='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\Datenbanken\Downloaded\IFREMER\CTD_for_DMQC_2020V01\';
+out='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\';
 outp=[out 'A1\'];
 
 %for each region
@@ -26,7 +26,7 @@ for i=1:numel(boxes)
     boxlist=boxes{i};
     for j=1:numel(boxlist)        
         box=boxlist(j);
-        inpath=spath{find(boxesmat==box)};
+       
         [output{i}(j,:),output_label,EXCL{i,j}]=box_basic_corr(inpath,box,outpath);
         if sum(cellfun(@isempty,EXCL{i,j}))==4
             EXCL_all{i,j}=[];
