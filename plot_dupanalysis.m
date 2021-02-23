@@ -1,6 +1,10 @@
 function [qckept,qcexcluded,criteria1,criteria2,indkept,indexcluded,boxn]...
-    =plot_dupanalysis(step,box,crit1,crit2,comb,pl)
+    =plot_dupanalysis(step,box,crit1,crit2,comb,pl,sv)
 
+
+if nargin<7
+    sv=[];
+end
 if nargin<6
     pl=[];
 end
@@ -18,9 +22,8 @@ if nargin <2
 end
 
 crit1label={'Profile content','Profile qclevel','2nd (identical)','both'};
-crit2label1={'Gap','Sal. resolution','MRP','Vertical resolution'};
-crit2label2={'qclevel','source'};
-
+[~,~,crit2label1]=prof_comppc([],[]);
+[~,~,~,~,crit2label2,~]=prof_compqc([],[]);
 
 % load regions and boxes
 load('regions.mat','boxesmat','regions')
@@ -30,12 +33,13 @@ if isempty(box)
     box=boxesmat';box=box(ind);
 end
 
+% data path
+inp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\';
+
 % loading results
-inp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\base\';
 fname=[inp 'a' num2str(step) '_results.mat'];
 load(fname,'DES','EXCL','IND','SKI')
 
-% ctd data path
 inp=[inp 'A' num2str(step-1) '\'];
 
 % loop box
@@ -83,15 +87,34 @@ for i=1:N
             if isempty(crit2)==0 && ismember(tmp,crit2)==0
             else
                 data=extr_prof(boxfile,ind(l,:));
-                ca=cellfun(@strcmp, data.qclevel, comb);
-                cr=cellfun(@strcmp, data.qclevel, fliplr(comb));
+                if isempty(comb)
+                    ca=[1 1];cr=[1 1];
+                else
+                    ca=cellfun(@strcmp, data.qclevel, comb);
+                    cr=cellfun(@strcmp, data.qclevel, fliplr(comb));
+                end
                 if  isempty(comb) || (sum(cr)==2 || sum(ca)==2)
                     count=count+1;                    
                     qckeptx{i,1}{count,1} = data.qclevel(excl(l,:)==0);
                     qcexcludedx{i,1}{count,1} = data.qclevel(excl(l,:)==1);
                     criteria1x{i,1}(count,1) = des(l);
-                    indkeptx{i,1}(count,:) = ind(l,(excl(l,:)==0));
-                    indexcludedx{i,1}(count,:) = ind(l,(excl(l,:)==1));
+%                     if l==2
+%                         pause
+%                     end
+                    if numel(ind(l,(excl(l,:)==0)))==0
+                        indkeptx{i,1}(count,:) = NaN;
+                    elseif numel(ind(l,(excl(l,:)==0)))==1
+                        indkeptx{i,1}(count,:) = ind(l,(excl(l,:)==0));
+                    elseif numel(ind(l,(excl(l,:)==0)))==2
+                        indkeptx{i,1}(count,:) = -2;
+                    end
+                    if numel(ind(l,(excl(l,:)==1)))==0
+                         indexcludedx{i,1}(count,:) = NaN;
+                    elseif numel(ind(l,(excl(l,:)==1)))==1
+                        indexcludedx{i,1}(count,:) = ind(l,(excl(l,:)==1));
+                    elseif  numel(ind(l,(excl(l,:)==1)))==2
+                        indexcludedx{i,1}(count,:) = -2;
+                    end
                     criteria2x{i,1}(count,1)=tmp;
                     
                     if pl==1
@@ -114,6 +137,11 @@ for i=1:N
                             num2str(ind(l,1)),num2str(ind(l,2));num2str(b),' ';
                             regions{fbr},' '};                        
                         plot_profpair(data,excl(l,:),extr)
+                        if sv==1
+                            eval(['export_fig -r200 step' num2str(step) '_' num2str(b) '_pair' num2str(l,'%03.f') '.png'])
+                            close
+                        end
+                        
                     end
                 end
             end

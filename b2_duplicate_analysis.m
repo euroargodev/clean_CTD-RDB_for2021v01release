@@ -66,7 +66,6 @@ for i=1:numel(flist) % step
                     indexcludedx{k,1}=[];
                     boxnx{k,1}=[];
                 end
-                %T = table(LastName,Age,Smoker,Height,Weight,BloodPressure)
                 %plot_profpair(data,excl(l,:))
             end
         end
