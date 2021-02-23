@@ -1,4 +1,4 @@
-function output=box_cleansamples(inpath,box,outpath)
+function [IND, output]=box_cleansamples(inpath,box,outpath)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % removing samples with out of range values and
 % incomplete triplets (each sample should have valid pressure, temperature
@@ -33,6 +33,17 @@ temp(ft)=NaN;ptemp(ft)=NaN;sal(fs)=NaN;
 disp(['  ' num2str(numel(ft)) ' out of range temperature samples'])
 disp(['  ' num2str(numel(fs)) ' out of range salinity samples'])
 
+% get subindices
+for k=1:numel(fs)
+[a,b]=ind2sub(size(sal),fs(k));
+FS(k,:)=[b a];
+end
+
+for k=1:numel(ft)
+[a,b]=ind2sub(size(temp),ft(k));
+FT(k,:)=[b a];
+end
+
 % 2. Find Incomplete triplets
 % Selects only samples with valid sal,temp and pres data columns
 % (all must be present)
@@ -44,6 +55,9 @@ isn=sum(isn,3);
 % (all equal to NAN). Everything in between is an invalid sample
 % Finding invalid samples/profiles to be corrected
 [f1,f2]=find(isn>0&isn<3);
+% get indices
+INC=[f2 f1];
+
 f1=numel(f1);f2=numel(unique(f2));
 disp(['  ' num2str(f1) ' incomplete samples in ' num2str(f2) ' profiles']) 
 
@@ -86,3 +100,19 @@ else
 end
 
 output=[numel(lat) numel(ft) numel(fs) f1 f2];
+if numel(fs)>0
+    IND.outsal=FS;
+else
+    IND.outsal=[];
+end
+if numel(ft)>0
+   IND.outtemp=FT;
+else
+   IND.outtemp=[];
+end
+if numel(ft)>0
+   IND.incomplete=INC;
+else
+   IND.incomplete=[];
+end
+
