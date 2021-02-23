@@ -25,11 +25,10 @@ for i=1:numel(boxes)
     % get box list for the region
     boxlist=boxes{i};
     for j=1:numel(boxlist)        
-        box=boxlist(j);
-       
-        [output{i}(j,:),output_label,EXCL{i,j}]=box_basic_corr(inpath,box,outpath);
+        box=boxlist(j);       
+        [output{i}(j,:),output_label,EXCL{i,j},badsamples{i,j},badprofiles{i,j}]=box_basic_corr(inpath,box,outpath);
         if sum(cellfun(@isempty,EXCL{i,j}))==4
-            EXCL_all{i,j}=[];
+            EXCL_all{i,j}=[];            
         else
             EXCL_all{i,j}=cell2mat(EXCL{i,j}');
         end
@@ -37,4 +36,4 @@ for i=1:numel(boxes)
     disp('---------------------------------------------------')
     diary off
 end
-save([out 'a1_results.mat'],'boxes','output*','regions','EXCL*');
+save([out 'a1_results.mat'],'boxes','output*','regions','EXCL*','bad*');
