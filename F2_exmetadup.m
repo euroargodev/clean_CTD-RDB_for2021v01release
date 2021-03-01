@@ -1,5 +1,7 @@
-function F2_exmetadup(boxlist,inpath,outpath,nameout)
-
+function F2_exmetadup(boxlist,inpath,outpath,nameout,indup)
+if nargin<5
+    indup=[];
+end
 % create output folder if does not exist
 if ~exist(outpath, 'dir')
     mkdir(outpath)
@@ -7,14 +9,30 @@ end
 for j=1:numel(boxlist)
     box=boxlist(j);
     % find indices of exact metadata duplicate
-    [dup,pair,ind,filein]= box_meta_dup(inpath,box);
+    [dup,pair,ind,filein]= box_meta_dup(inpath,box);    
+   
     n=size(ind,1);
-    excl=[];
+    % checking if there are pairs to skip (same origin)
+    if isempty(indup)==0
+        oind=indup(ind);
+        sk=[];
+        for k=1:n
+            if oind(k,1)==oind(k,2)
+                sk=[sk k];
+            end
+        end
+        if isempty(sk)==0
+            ind(sk,:)=[];
+        end
+        n=size(ind,1);
+    end
+    
+    disp([num2str(n) ' exact metadata duplicates'])
     % preallocating vars
+    excl=[];
     perc_t=zeros(n,1);perc_s=zeros(n,1);conf=zeros(n,1);
     skip=zeros(n,1);des=zeros(n,1);des2=zeros(n,1);
-    disp([num2str(n) ' exact metadata duplicates'])
-    diary off
+ 
     % for each pair
     for k=1:n
         showporc(k,n,10)
@@ -65,6 +83,10 @@ for j=1:numel(boxlist)
         disp([num2str(numel(excl)) ' profiles will be excluded'])
         output{1}(j,:)=[n numel(find(conf==1)) numel(find(conf==0)) numel(excl)];
         box_excl(inpath,box,excl,outpath)
+        if isempty(indup)==0
+           indup(excl)=[]; 
+           eval(['save ' outpath filename ' indup -append'])
+        end
     else
         output{1}(j,:)=[n NaN NaN NaN];
         if isfile([inpath 'ctd_' num2str(box) '.mat'])
@@ -87,4 +109,8 @@ for j=1:numel(boxlist)
 end
 
 output_label={'n emetadup','same content','different content',' n profiles excluded'};
-save(nameout,'boxlist','output*','EXCL','PERC*','IND','CONF','DES*','SKI','dlabel*')
+if exist('dlabel1','var')
+    save(nameout,'boxlist','output*','EXCL','PERC*','IND','CONF','DES*','SKI','dlabel*')
+else
+    save(nameout,'boxlist','output*','EXCL','PERC*','IND','CONF','DES*','SKI')
+end

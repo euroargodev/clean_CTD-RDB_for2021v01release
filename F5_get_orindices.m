@@ -93,8 +93,11 @@ end
 pairdet2_label={'ind1','ind2','confirmed','skipped','temp. simil.','sal. simil.'};
 pairdes_label={'ind1','excl1','ind2','excl2','decision1','decision2'};
 des1_label={'profile','origin'};
-des1_1_des2label=dlabel1;
-des1_2_des2label=dlabel2;
+
+if exist('dlabel1','var')
+    des1_1_des2label=dlabel1;
+    des1_2_des2label=dlabel2;
+end
 
 clear CONF DES* dlabel* excl EXCL f i IND j PERC* SKI output output_Label
 

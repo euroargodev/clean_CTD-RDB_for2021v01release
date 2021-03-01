@@ -1,5 +1,7 @@
-function F3_contdup(boxlist,inpath,outpath,nameout)
-
+function F3_contdup(boxlist,inpath,outpath,nameout,indup)
+if nargin<5
+    indup=[];
+end
 % Content duplicates
 % create output folder if does not exist
 if ~exist(outpath, 'dir')
@@ -12,12 +14,27 @@ for j=1:numel(boxlist)
     % to interpolated/truncated profiles (900:10:2000)
     [ind,filein]=box_cont_dup(inpath,box);
     n=size(ind,1);
+    % checking if there are pairs to skip (same origin)
+    if isempty(indup)==0
+        oind=indup(ind);
+        sk=[];
+        for k=1:n
+            if oind(k,1)==oind(k,2)
+                sk=[sk k];
+            end
+        end
+        if isempty(sk)==0
+            ind(sk,:)=[];
+        end
+        n=size(ind,1);
+    end
+    
+    disp([num2str(n) ' probable cont duplicates'])
     % preallocating vars
     excl=[];
     perc_t=zeros(n,1);perc_s=zeros(n,1);conf=zeros(n,1);
     skip=zeros(n,1);des=zeros(n,1);des2=zeros(n,1);near=zeros(n,1);
     
-    disp([num2str(n) ' probable cont duplicates'])
     diary off
     % for each pair
     for k=1:n
@@ -81,6 +98,10 @@ for j=1:numel(boxlist)
         disp([num2str(numel(excl)) ' profiles will be excluded'])
         output{1}(j,:)=[n numel(find(conf==1)) numel(find(near==1 & conf==1)) numel(find(near==0 & conf==1)) numel(excl)];
         box_excl(inpath,box,excl,outpath)
+        if isempty(indup)==0
+           indup(excl)=[]; 
+           eval(['save ' outpath filename ' indup -append'])
+        end
     else
         output{1}(j,:)=[n NaN NaN NaN NaN];
         if isfile([inpath 'ctd_' num2str(box) '.mat'])
@@ -102,6 +123,9 @@ for j=1:numel(boxlist)
     
 end
 
-
 output_label={'n probdup','n contdup','nearby','far','n profiles excluded'};
-save(nameout,'boxlist','output*','EXCL','PERC*','IND','CONF','DES*','SKI','dlabel*','NEAR')
+if exist('dlabel1','var')
+    save(nameout,'boxlist','output*','EXCL','PERC*','IND','CONF','DES*','SKI','dlabel*','NEAR')
+else
+    save(nameout,'boxlist','output*','EXCL','PERC*','IND','CONF','DES*','SKI','NEAR')
+end
