@@ -77,7 +77,6 @@ for j=1:numel(boxlist)
             skip(k)=1;
         end
     end
-    diary on
     % delete the profiles in the list and summarize the outputs if
     % there are some profiles to delete. If not just copy the contents
     % to the outpath

@@ -35,7 +35,6 @@ for j=1:numel(boxlist)
     perc_t=zeros(n,1);perc_s=zeros(n,1);conf=zeros(n,1);
     skip=zeros(n,1);des=zeros(n,1);des2=zeros(n,1);near=zeros(n,1);
     
-    diary off
     % for each pair
     for k=1:n
         showporc(k,n,10)
