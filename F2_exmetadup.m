@@ -1,6 +1,6 @@
-function F2_exmetadup(boxlist,inpath,outpath,nameout,indup)
+function F2_exmetadup(boxlist,inpath,outpath,nameout,indupcell)
 if nargin<5
-    indup=[];
+    indupcell=[];
 end
 % create output folder if does not exist
 if ~exist(outpath, 'dir')
@@ -10,7 +10,7 @@ for j=1:numel(boxlist)
     box=boxlist(j);
     % find indices of exact metadata duplicate
     [dup,pair,ind,filein]= box_meta_dup(inpath,box);    
-   
+    indup=indupcell{j};
     n=size(ind,1);
     % checking if there are pairs to skip (same origin)
     if isempty(indup)==0
@@ -85,7 +85,7 @@ for j=1:numel(boxlist)
         box_excl(inpath,box,excl,outpath)
         if isempty(indup)==0
            indup(excl)=[]; 
-           eval(['save ' outpath filename ' indup -append'])
+           eval(['save ' outpath 'ctd_' num2str(box) ' indup -append'])
         end
     else
         output{1}(j,:)=[n NaN NaN NaN];

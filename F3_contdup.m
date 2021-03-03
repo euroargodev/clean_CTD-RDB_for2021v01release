@@ -1,6 +1,6 @@
-function F3_contdup(boxlist,inpath,outpath,nameout,indup)
+function F3_contdup(boxlist,inpath,outpath,nameout,indupcell)
 if nargin<5
-    indup=[];
+    indupcell=[];
 end
 % Content duplicates
 % create output folder if does not exist
@@ -13,6 +13,7 @@ for j=1:numel(boxlist)
     % find indices of content duplicate candidates (based on sums algorithm applied
     % to interpolated/truncated profiles (900:10:2000)
     [ind,filein]=box_cont_dup(inpath,box);
+    indup=indupcell{j};
     n=size(ind,1);
     % checking if there are pairs to skip (same origin)
     if isempty(indup)==0
@@ -98,8 +99,8 @@ for j=1:numel(boxlist)
         output{1}(j,:)=[n numel(find(conf==1)) numel(find(near==1 & conf==1)) numel(find(near==0 & conf==1)) numel(excl)];
         box_excl(inpath,box,excl,outpath)
         if isempty(indup)==0
-           indup(excl)=[]; 
-           eval(['save ' outpath filename ' indup -append'])
+            indup(excl)=[];
+            eval(['save ' outpath 'ctd_' num2str(box) ' indup -append'])
         end
     else
         output{1}(j,:)=[n NaN NaN NaN NaN];
