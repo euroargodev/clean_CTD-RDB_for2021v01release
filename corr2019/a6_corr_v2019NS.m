@@ -147,3 +147,17 @@ disp(['Coastal profiles (Sognefjord): ' num2str(numel(excl_3)) ])
 box_excl([indir '\'],1600,excl_3,[indir '\'])
 
 save a6_fjord_excl.mat excl_3 box
+
+%% 
+outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\A5';
+indir=[outp '\**\'];
+list=dir([indir 'ctd*.mat']);
+
+op='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\A5\';
+
+for i=1:numel(list)
+    if exist([op list(i).name],'file')~= 2
+       box=str2double(list(i).name(5:8));
+       box_copy(outp,box,op) 
+    end
+end
