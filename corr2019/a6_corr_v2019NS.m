@@ -149,11 +149,11 @@ box_excl([indir '\'],1600,excl_3,[indir '\'])
 save a6_fjord_excl.mat excl_3 box
 
 %% 
-outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\A5';
+outp='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\A5\';
 indir=[outp '\**\'];
 list=dir([indir 'ctd*.mat']);
 
-op='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\A5\';
+op='\\win.bsh.de\root$\Standard\Hamburg\Homes\Homes00\bm2286\CTD-RDB-DMQC\2020\check2020V01\A6\';
 
 for i=1:numel(list)
     if exist([op list(i).name],'file')~= 2

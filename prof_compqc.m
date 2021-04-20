@@ -9,8 +9,12 @@ else
     
     qc={'SPI','CCH','GSH','UDA','BSH','OCL','COR','ICE'};
     
-    for i=1:2       
-        qcl(i)=find(strcmp(data.qclevel(i),qc)==1);
+    for i=1:2 
+        if isempty(find(strcmp(data.qclevel(i),qc)==1))==0
+            qcl(i)=find(strcmp(data.qclevel(i),qc)==1);
+        else
+            data.qclevel(i)
+        end
         src(i)=str2double(data.source(i));
     end
     

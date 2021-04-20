@@ -26,16 +26,16 @@ end
 
 save regions.mat boxes regions boxesmat regionsmat
 
-%% plot regions
-% cmp=hsv(8);
-% for i=1:8
-%     if i==1
-%         pl=1;
-%     else
-%         pl =2;
-%     end
-%     clr=cmp(i,:);
-%     plot_wmoboxes(boxes{i},clr,pl)
-% end
-% saveas(gcf,'region_def.fig')
-% export_fig -r300 region_def.png
+% plot regions
+cmp=hsv(8);
+for i=1:8
+    if i==1
+        pl=1;
+    else
+        pl =2;
+    end
+    clr=cmp(i,:);
+    plot_wmoboxes(boxes{i},clr,pl)
+end
+saveas(gcf,'region_def.fig')
+export_fig -r300 region_def.png
