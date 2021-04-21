@@ -4,6 +4,7 @@ This repository stores the matlab scripts used to prepare the release of the CTD
 The main objectives were:
 - To remove invalid profiles and samples (ex. profiles assigned to the wrong box and samples with missing temperature or salinity)
 - Remove duplicated profiles (by checking for exact metadata duplicates, aproximate metadata duplicates and content duplicates)
+For more details please check the Wiki.
 
 ## Requirements
 
