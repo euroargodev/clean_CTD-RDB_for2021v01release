@@ -24,7 +24,7 @@ EASME/EMFF/2015/1.2.1.1/SI2.709624. EA-RISE is funded by the European Union’s 
 
 <img src="https://www.euro-argo.eu/var/storage/images/_aliases/fullsize/medias-ifremer/medias-euro_argo/eu-project-contribution/mocca/logo_mocca_4-3/1537744-1-eng-GB/Logo_MOCCA_4-3.jpg" width="100" /> <img src="https://www.euro-argo.eu/var/storage/images/_aliases/fullsize/medias-ifremer/medias-euro_argo/logos/euro-argo-rise-logo/1688041-1-eng-GB/Euro-argo-RISE-logo.png" width="100" />
 
-and is developed by the Federal Maritime and Hydrographic Agency (Bundesamt für Seeschifffahrt und Hydrographie, BSH) 
+and is developed at the Federal Maritime and Hydrographic Agency (Bundesamt für Seeschifffahrt und Hydrographie, BSH) 
 
 <img src="https://www.bsh.de/SiteGlobals/Frontend/Images/logo.png?__blob=normal&v=9" width="50" />
 
