@@ -9,6 +9,9 @@ else
     
     qc={'SPI','CCH','GSH','UDA','BSH','OCL','COR','ICE'};
     
+    % this is to accomodate a new qclevel value I was not aware of DPY,
+    % that means deployment CTD. This profiles were ignored if already in
+    % the database
     for i=1:2 
         if isempty(find(strcmp(data.qclevel(i),qc)==1))==0
             qcl(i)=find(strcmp(data.qclevel(i),qc)==1);
