@@ -13,7 +13,11 @@ for j=1:numel(boxlist)
     % find indices of content duplicate candidates (based on sums algorithm applied
     % to interpolated/truncated profiles (900:10:2000)
     [ind,filein]=box_cont_dup(inpath,box);
+    if isempty(indupcell)==0
     indup=indupcell{j};
+    else
+        indup=[];
+    end
     n=size(ind,1);
     % checking if there are pairs to skip (same origin)
     if isempty(indup)==0

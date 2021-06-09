@@ -12,11 +12,14 @@ for j=1:numel(boxlist)
     % find indices of near metadata duplicates (1 decimal place for lat
     % long and 1 day diff for time)
     [ind,filein]=box_meta_neardup(inpath,box);
-    indup=indupcell{j};
     n=size(ind,1);
  
     % checking if there are pairs to skip (same origin)
+    if isempty(indupcell)==0
+    indup=indupcell{j};
     if isempty(indup)==0
+          
+  
         oind=indup(ind);
         sk=[];
         for k=1:n
@@ -28,6 +31,9 @@ for j=1:numel(boxlist)
             ind(sk,:)=[];
         end
         n=size(ind,1);
+    end 
+    else
+        indup=[];
     end
     
     disp([num2str(n) ' near metadata duplicates'])
@@ -89,8 +95,9 @@ for j=1:numel(boxlist)
         box_excl(inpath,box,excl,outpath)
         if isempty(indup)==0
             indup(excl)=[];
-            eval(['save ' outpath 'ctd_' num2str(box) ' indup -append'])
         end
+        eval(['save ' outpath 'ctd_' num2str(box) ' indup -append'])
+       
     else
         output{1}(j,:)=[n NaN NaN NaN];
         if isfile([inpath 'ctd_' num2str(box) '.mat'])

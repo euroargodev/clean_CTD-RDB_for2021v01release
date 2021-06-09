@@ -23,6 +23,7 @@ for i=1:nvar
                 else
                     eval(['tmp= ' var_list{i} ';' ])
                 end
+               
             end
         end
         eval([var_list{i} '= tmp;' ])
@@ -51,6 +52,7 @@ for i=1:nvar
     end
 end
 
+
 for k=1:n
     indup{k}=k*ones(1,s(k,2));
 end
@@ -58,6 +60,7 @@ indup=cell2mat(indup);
 strv=[strv ' indup'];
 
 long=convertlon(long,360);
+
 
 fileout=[opath 'ctd_' num2str(box)];
 eval(['save ' fileout ' ' strv ' -v7.3'])

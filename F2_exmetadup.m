@@ -91,6 +91,7 @@ for j=1:numel(boxlist)
         output{1}(j,:)=[n NaN NaN NaN];
         if isfile([inpath 'ctd_' num2str(box) '.mat'])
             box_copy(inpath,box,outpath)
+            eval(['save ' outpath 'ctd_' num2str(box) ' indup -append'])
         end
     end
     

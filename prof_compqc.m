@@ -7,7 +7,7 @@ else
     % compare profile content
     data=extr_prof(filein,ind);
     
-    qc={'SPI','CCH','GSH','UDA','BSH','OCL','COR','ICE'};
+    qc={'SPI','DPY','CCH','GSD','GSH','UDA','BSH','PAN','OCL','COR','ICE'};
     
     % this is to accomodate a new qclevel value I was not aware of DPY,
     % that means deployment CTD. This profiles were ignored if already in
