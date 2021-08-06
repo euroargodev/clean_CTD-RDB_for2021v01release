@@ -72,7 +72,7 @@ for j=1:numel(boxlist)
                         des2(k)=NaN;
                     else % if not, delete the worst profile
                         excl=[excl ind(k,w)];
-                    end
+                    end         
                 else % if they are far away delete both profiles (metadata uncertainty)
                     excl=[excl ind(k,:)];
                     des(k)=4; % both
