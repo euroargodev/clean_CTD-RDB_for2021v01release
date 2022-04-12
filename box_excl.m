@@ -10,6 +10,17 @@ filename=['ctd_' num2str(box)];
 % get list of variables
 var_list=whos('-file',[inpath filename]);
 nvar=numel(var_list);
+rm=[];
+for i=1:nvar
+    if strcmp(var_list(i).name,'indup')
+       rm=i;
+    end
+end
+if isempty(rm)==0
+    var_list(rm)=[];
+    nvar=numel(var_list);
+end
+
 strv=[];
 for i=1:nvar
     strv=[strv var_list(i).name ' '];

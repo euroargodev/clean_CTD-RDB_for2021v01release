@@ -1,6 +1,8 @@
 function F4_nearmetadup(boxlist,inpath,outpath,nameout,indupcell)
 if nargin<5
-    indupcell=[];
+    for i=1:numel(boxlist)
+    indupcell{i}=[];
+    end
 end
 % create output folder if does not exist
 if ~exist(outpath, 'dir')

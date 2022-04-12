@@ -1,6 +1,8 @@
 function F3_contdup(boxlist,inpath,outpath,nameout,indupcell)
 if nargin<5
-    indupcell=[];
+    for i=1:numel(boxlist)
+    indupcell{i}=[];
+    end
 end
 % Content duplicates
 % create output folder if does not exist

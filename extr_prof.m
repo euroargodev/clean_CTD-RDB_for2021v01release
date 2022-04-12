@@ -27,7 +27,8 @@ if isempty(ind)==0
         if var_list(i).size(1) ==1 && strcmp(var_list(i).class,'char')==0
             eval(['tmp=' var_list(i).name '(ind);' ])
             eval(['data.' var_list(i).name '=tmp;']);
-        elseif strcmp(var_list(i).class,'char')
+        elseif strcmp(var_list(i).class,'char')||var_list(i).size(2)==0
+            
         else
             eval(['tmp=' var_list(i).name '(:,ind);' ])
             eval(['data.' var_list(i).name '=tmp;']);

@@ -23,7 +23,7 @@ end
 load([inpath filename])
 
 % 1. Check ranges and replace out of range with nan
-if min(lat)<-50 || max(lat)>60
+if min(lat)<-40 || max(lat)>40
    ft=find(temp<-2.5|temp>40);
 else
    ft=find(temp<0|temp>40);
