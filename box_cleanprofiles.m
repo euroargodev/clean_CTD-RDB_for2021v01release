@@ -35,11 +35,11 @@ disp(['  ' num2str(numel(ind{1})) ' profiles out of the box ...'])
 
 % B. Get shallow MRP
 MRP=max(pres,[],1);
-ind{2,1}=union(find(MRP<900),find(isnan(MRP)==1));
+ind{2,1}=union(find(MRP<0),find(isnan(MRP)==1));% MODIFIED FOR THE MEDSEA
 if isempty(ind{2,1})
     ind{2,1}=[];
 end
-disp(['  ' num2str(numel(ind{2})) ' profiles shallower than 900 db ...'])
+disp(['  ' num2str(numel(ind{2})) ' profiles shallower than 0 db ...'])
 
 % C. Get profiles with non-monotonically increasing pressure (NMIP)
 % Check for columns containing more than one profile

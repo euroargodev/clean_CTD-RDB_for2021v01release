@@ -31,7 +31,7 @@ if isfile([rdb_path 'ctd_' num2str(box) '.mat'])
     end
     % if has too many profiles
     
-    if n>10000
+    if n>1000000000 % MODIFIED FOR THE MEDSEA
         ind2{4,1}=find(dates<19950000000000);
         box_excl(outpath,box,ind2{4},outpath)
         disp(['Older ' num2str(numel(ind2{4})) ' profiles excluded, since the box had ' ...
