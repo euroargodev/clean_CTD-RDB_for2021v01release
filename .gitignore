@@ -1,4 +1,25 @@
+# subdirectories
+*/*
+
+# matlab file extensions
 *.mat
 *.fig
+*.asv
+
+# zip extensions
+*.zip
+
+# Netcdf extensions
+*.nc
+
+#text files
+*.txt
+
+# images
 *.png
+*.gif
+
+# excel extensions
+*.xls
 *.xlsx
+*.csv
