@@ -28,7 +28,7 @@ if min(lat)<-50 || max(lat)>60
 else
    ft=find(temp<0|temp>40);
 end
-fs=find(sal<24|temp>41);
+fs=find(sal<24|sal>41);
 temp(ft)=NaN;ptemp(ft)=NaN;sal(fs)=NaN;
 disp(['  ' num2str(numel(ft)) ' out of range temperature samples'])
 disp(['  ' num2str(numel(fs)) ' out of range salinity samples'])
