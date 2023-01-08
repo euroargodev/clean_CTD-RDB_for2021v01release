@@ -1,6 +1,6 @@
 function F4_nearmetadup(boxlist,inpath,outpath,nameout,indupcell)
 if nargin<5
-    indupcell=[];
+    indup=[];
 end
 % create output folder if does not exist
 if ~exist(outpath, 'dir')
@@ -12,7 +12,9 @@ for j=1:numel(boxlist)
     % find indices of near metadata duplicates (1 decimal place for lat
     % long and 1 day diff for time)
     [ind,filein]=box_meta_neardup(inpath,box);
-    indup=indupcell{j};
+    if nargin > 4
+        indup=indupcell{j};
+    end
     n=size(ind,1);
  
     % checking if there are pairs to skip (same origin)

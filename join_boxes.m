@@ -43,6 +43,8 @@ for i=1:nvar
                     eval(['tmpm{k}= ' var_list{i} ';' ])
                 end
                 s(k,:)=size(tmpm{k});
+            else
+                s(k,:)=[0 0];
             end
         end
         tmpm=cell2fillnan(tmpm);
@@ -51,6 +53,7 @@ for i=1:nvar
     end
 end
 
+indup=cell(1,n);
 for k=1:n
     indup{k}=k*ones(1,s(k,2));
 end

@@ -1,6 +1,6 @@
 function F3_contdup(boxlist,inpath,outpath,nameout,indupcell)
 if nargin<5
-    indupcell=[];
+    indup=[];
 end
 % Content duplicates
 % create output folder if does not exist
@@ -13,7 +13,9 @@ for j=1:numel(boxlist)
     % find indices of content duplicate candidates (based on sums algorithm applied
     % to interpolated/truncated profiles (900:10:2000)
     [ind,filein]=box_cont_dup(inpath,box);
-    indup=indupcell{j};
+    if nargin>4
+        indup=indupcell{j};
+    end
     n=size(ind,1);
     % checking if there are pairs to skip (same origin)
     if isempty(indup)==0
