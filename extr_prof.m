@@ -2,22 +2,17 @@ function data=extr_prof(filein,ind)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Extracts the profiles with the indices (IND) present in the file 
 % (FILEIN). Output is a structure (DATA)
-%
+% INPUT: FILEIN is the box file. A full path plus filename must be provided 
+%        if the file is not in the current folder.
+%        IND is a vector with the indices that are to be extracted.
+% OUTPUT: DATA structure containing all the profile info
 % Author: Ingrid M. Angel-Benavides
-%         BSH - MOCCA/EA-Rise (Euro-Argo)
+%         BSH - EURO-ARGO RISE project
 %        (ingrid.angel@bsh.de)
-% Last update: 09.10.2019
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-var_list=whos('-file',filein);
-nvar=numel(var_list);
 
 % get list of variables
 var_list=whos('-file',filein);
-strv=[];
-for i=1:nvar
-    strv=[strv var_list(i).name ' '];
-end
 nvar=numel(var_list);
 
 % get data

@@ -20,6 +20,6 @@
 *.gif
 
 # excel extensions
-*.xls
-*.xlsx
+#*.xls
+#*.xlsx
 *.csv
