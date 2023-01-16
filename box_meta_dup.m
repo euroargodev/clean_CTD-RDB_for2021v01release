@@ -3,10 +3,8 @@ function [dup,pair,ind,filename]=box_meta_dup(inpath,box)
 % Checks for metadata duplicates: same latitude, longitude and date 
 % Input: in (INPATH, string) and box number (BOX, number)
 % Output: 
-% dup
-% pair 
-% ind
-% filename
+% DUP, PAIR and IND are the outputs of the FIND_DUP function
+% FILENAME: is the full file name of the box being checked for duplicates
 % 
 % Author: Ingrid M. Angel-Benavides
 %         BSH - EURO-ARGO RISE project
