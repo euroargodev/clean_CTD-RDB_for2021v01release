@@ -1,4 +1,24 @@
 function F2_exmetadup(boxlist,inpath,outpath,nameout,indupcell)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This function 
+% Input: 
+% BOXLIST
+% INPATH
+% OUTPATH
+% NAMEOUT
+% INDUPCELL % unclear, I think this was for reusing some output when a step
+% was not running completely.
+% probably better to remove in the future
+
+% F2_exmetadup(boxlist,inpath,outpath,'test2.mat');
+% Output: 
+% 
+% Obs. 
+% 
+% Author: Ingrid M. Angel-Benavides
+%         BSH - EURO-ARGO RISE project
+%        (ingrid.angel@bsh.de)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if nargin<5
     indup=[];
 end
@@ -6,14 +26,30 @@ end
 if ~exist(outpath, 'dir')
     mkdir(outpath)
 end
-for j=1:numel(boxlist)
+
+% preallocate outputs
+tmp=cell(1,numel(boxlist));
+SKI= tmp;% skipped pairs
+IND = tmp;% duplicated pairs as the IND output from the BOX_META_DUP function
+DES= tmp;% reason why the profiles where delated/retained. It relates to OUTPUT_LABEL
+DES2= tmp;% reason why one profile was considered better/worse than the other. 
+          % This comes from the output of the functions prof_comppc or prof_compqc
+CONF= tmp;% vector with the output of prof_compcont (1 means that the pair is a content duplicate)
+PERCT= tmp;% output of prof_compcont
+PERCS= tmp;% output of prof_compcont
+EXCL= tmp; % contains iformation about excluded profiles related to the duplicate pairs!
+               
+for j=1:numel(boxlist)% For each box in the list
     box=boxlist(j);
     % find indices of exact metadata duplicate
-    [dup,pair,ind,filein]= box_meta_dup(inpath,box);    
-	if nargin>4
-        indup=indupcell{j};
+    [~,~,ind,filein]= box_meta_dup(inpath,box);    
+	
+    if nargin>4
+       indup=indupcell{j};
     end
+    
     n=size(ind,1);
+    % HERE THE SKIPING PART
     % checking if there are pairs to skip (same origin)
     if isempty(indup)==0
         oind=indup(ind);
@@ -44,8 +80,8 @@ for j=1:numel(boxlist)
             [perc_t(k,1),perc_s(k,1),conf(k,1)]=prof_compcont(filein,ind(k,:));
             if conf(k)==1 % if it is
                 % find the worst profile
-                [w1,d1,dlabel1]=prof_comppc(filein,ind(k,:)); % profile content
-                [w2,~,~,d2,dlabel2]=prof_compqc(filein,ind(k,:)); % profile qclevel/source
+                [w1,d1,dlabel1]=prof_comppc(filein,ind(k,:)); %#ok<ASGLU> % profile content
+                [w2,~,~,d2,dlabel2]=prof_compqc(filein,ind(k,:)); %#ok<ASGLU> % profile qclevel/source
                 % find worst profile giving preference to the content
                 if w1==0
                     w=w2;
@@ -97,20 +133,22 @@ for j=1:numel(boxlist)
     end
     
     %storing indices
-    SKI{1,j}=skip;
-    IND{1,j}=ind;
-    DES{1,j}=des;
-    DES2{1,j}=des2;
-    CONF{1,j}=conf;
-    PERCT{1,j}=perc_t;
-    PERCS{1,j}=perc_s;
-    EXCL{1,j}=excl;
+    SKI{1,j}=skip; % skipped pairs
+    IND{1,j}=ind;  % duplicated pairs as the IND output from the BOX_META_DUP function
+    DES{1,j}=des;  % reason why the profiles where delated/retained. It relates to OUTPUT_LABEL
+    DES2{1,j}=des2;% reason why one profile was considered better/worse than the other. 
+    % This comes from the output of the functions prof_comppc or prof_compqc
+    CONF{1,j}=conf;% vector with the output of prof_compcont (1 means that the pair is a content duplicate)
+    PERCT{1,j}=perc_t;% output of prof_compcont
+    PERCS{1,j}=perc_s;% output of prof_compcont
+    EXCL{1,j}=excl;% is a 2 x nduplicate vector where 1 indicates an excluded profile
+                   % and 0 a retained profile
     clear perc* conf* ind skip excl des des2
     
     disp('...')
 end
 
-output_label={'n emetadup','same content','different content',' n profiles excluded'};
+output_label={'n emetadup','same content','different content',' n profiles excluded'}; %#ok<NASGU>
 if exist('dlabel1','var')
     save(nameout,'boxlist','output*','EXCL','PERC*','IND','CONF','DES*','SKI','dlabel*')
 else
