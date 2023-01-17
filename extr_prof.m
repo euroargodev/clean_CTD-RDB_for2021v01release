@@ -2,10 +2,13 @@ function data=extr_prof(filein,ind)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Extracts the profiles with the indices (IND) present in the file 
 % (FILEIN). Output is a structure (DATA)
-% INPUT: FILEIN is the box file. A full path plus filename must be provided 
+% Input: 
+% FILEIN is the box file. A full path plus filename must be provided 
 %        if the file is not in the current folder.
-%        IND is a vector with the indices that are to be extracted.
-% OUTPUT: DATA structure containing all the profile info
+% IND is a vector with the indices that are to be extracted.
+% Output: 
+% DATA structure containing all the profile info without filling NaNs
+% 
 % Author: Ingrid M. Angel-Benavides
 %         BSH - EURO-ARGO RISE project
 %        (ingrid.angel@bsh.de)
@@ -15,7 +18,7 @@ function data=extr_prof(filein,ind)
 var_list=whos('-file',filein);
 nvar=numel(var_list);
 
-% get data
+% load data
 if isempty(ind)==0
     for i=1:nvar
         eval(['load ' filein ' ' var_list(i).name])
