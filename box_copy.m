@@ -21,7 +21,7 @@ var_list={'dates';'lat';'long';'pres';'ptmp';'qclevel';'sal';'source';'temp'};
 % get variables in file
 fvar_list=whos('-file',[inpath filename]);
 for i=1:numel(fvar_list)
-    tmp{i}=fvar_list(i).name;
+    tmp{i}=fvar_list(i).name; %#ok<AGROW>
 end
 fvar_list=tmp;clear tmp
 
@@ -64,6 +64,13 @@ for i=1:nvar
             disp(inpath)
             qclevel{1}=input('string :');
             qclevel=repmat(qclevel{1}, size(lat));
+        end
+        if isempty(f) && strcmp(var_list{i},'source')
+            disp('Box without source. Please assign a string that will be applied for all profiles.')
+            disp('path:')
+            disp(inpath)
+            source{1}=input('string :');
+            source=repmat(source{1}, size(lat));
         end
     else
         eval(['load([inpath filename],' '''' fvar_list{f} '''' ');'])
