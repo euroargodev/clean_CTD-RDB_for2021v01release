@@ -15,6 +15,13 @@ function [strv, nvar] = varstring(var_list)
 %         BSH - EURO-ARGO RISE project
 %        (ingrid.angel@bsh.de)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+if isstruct(var_list)
+   tmp=var_list;clear var_list
+   for i=1:numel(tmp)
+       var_list{i}=tmp(i).name;
+   end
+end
+
 nvar=numel(var_list); strv=[];
 for i=1:nvar
     strv=[strv var_list{i} ' ']; %#ok<AGROW>
