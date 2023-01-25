@@ -1,13 +1,14 @@
 %% Initial definitions
 % Define the paths
 % of the CTD-RDB mat files (inpath)
-inpath='\H:\Datenbanken\Downloaded\IFREMER\CTD_for_DMQC_2020V01\';
+inpath='H:\Datenbanken\Downloaded\IFREMER\CTD_for_DMQC_2021V02\';
 % of the outputs (outp)
-outp='H:\CodeProjects\CTD-RDB_2020\';
+outp='H:\CodeProjects\CTD-RDB_2020\x\';
 % Define vector with a list of the boxes numbers to be checked
-boxlist=1813; %only one for simplicity here
+boxlist=[3600        3601        3602        5600        5601        5602        5603        5604 ...
+    5605        3700        3701        3702        5700        5701        5702        5703 5704        5705]; %only one for simplicity here
 
-%% Running all the steps 
+%% Running all the steps  
 % The steps are done sequentially
 % each of the steps are stored in a different subfolder (A1 for step 1, A2
 % for step 2, and so on) and the output and input folder changes with every
