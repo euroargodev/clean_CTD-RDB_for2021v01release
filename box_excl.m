@@ -15,7 +15,7 @@ filename=['ctd_' num2str(box)];
 % get list of variables
 var_list=whos('-file',[inpath filename]);
 % makes a string for saving the new matfile later
-[nvar, strv] = varstring(var_list);
+[strv, nvar] = varstring(var_list);
 
 % exclude profiles
 if isempty(excl)==0   

@@ -16,7 +16,7 @@ filename=['ctd_' num2str(box)];
 var_list={'dates';'lat';'long';'pres';'ptmp';'qclevel';'sal';'source';'temp'};
 
 % makes a string for saving the new matfile later
-[nvar, strv] = varstring(var_list);
+[strv,nvar] = varstring(var_list);
 
 % get variables in file
 fvar_list=whos('-file',[inpath filename]);
