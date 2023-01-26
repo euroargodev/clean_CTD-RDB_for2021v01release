@@ -13,7 +13,7 @@ function F1_basic_corr(boxlist,inpath,outpath,nameoutput)
 % Output: There are no variable outputs but new matfiles:
 % - new versions of the box files in BOXLIST stored in OUTPATH
 % - and the output matfile NAMEOUTPUT stored in the local directory (or in
-% another one if a full path is given in NAMEOUTPUT) with the the summary
+% another one if a full path is given in NAMEOUTPUT) with the  summary
 % and details of the procedures.
 %
 % Author: Ingrid M. Angel-Benavides
