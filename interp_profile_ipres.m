@@ -1,14 +1,22 @@
+function [itemp,isal]=interp_profile_ipres(pres,temp,sal,ipres)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% interp_profile_ipres 
 % Interpolates boxes data (pres,temp,sal) to standard pressure levels given
-% by ipres
+% by ipres.
+% Input:
+% PRES is a ns x 2 matrix containing pressure, where ns is the (maximum*) number of
+% samples
+% TEMP is a ns x 2 matrix containing the temperature values 
+% SAL is a ns x 2 matrix containing the salinity values 
+% IPRES  is a 1 x n vector containig the n pressure levels to which the profiles
+% will be interpolated 
+% Output:
+% ITEMP and ISAL are the TEMP and SAL matrices interpolated to the IPRES
+% values
 % Author: Ingrid M. Angel-Benavides
 %         BSH - MOCCA/EA-Rise (Euro-Argo)
 %        (ingrid.angel@bsh.de)
-% Last update: 09.10.2019
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [itemp,isal]=interp_profile_ipres(pres,temp,sal,ipres)
 % preallocate output
 n=size(temp,2);
 itemp=nan(numel(ipres),n);
@@ -19,7 +27,7 @@ for i=1:n
     % unique pressure values
     [~,ix1] = unique(pres(:,i));
     % valid data
-    ix2=find(isnan(pres(:,i))==0);
+    ix2=find(isnan(pres(:,i))==0); %#ok<COMPNOT>
     % selecting only valid data
     ix=intersect(ix1,ix2);
     % interpolating

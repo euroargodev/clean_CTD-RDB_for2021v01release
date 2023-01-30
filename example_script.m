@@ -23,16 +23,16 @@ F1_basic_corr(boxlist,inpath,outpath,'test1.mat');
 inpath=outpath;
 outpath=[outp 'A2\'];
 F2_exmetadup(boxlist,inpath,outpath,'test2.mat');
-% Step 3 is the check of the content duplicates
-inpath=outpath;
-outpath=[outp 'A3\'];
-F3_contdup(boxlist,inpath,outpath,'test3.mat');
-% Step 4 is the check of near duplicates
-inpath=outpath;
-outpath=[outp 'A4\'];
-F4_nearmetadup(boxlist,inpath,outpath,'test4.mat');
-% Step 5 is an extra step that puts uses the information of all the outputs 
-% to make the information of the deleted and modified profiles available in
-% the form of the indices of the original boxes. This is useful to compare
-% the original with the final box.
-F5_get_orindices('test1.mat','test2.mat','test3.mat','test4.mat','ind.mat')
+% % Step 3 is the check of the content duplicates
+% inpath=outpath;
+% outpath=[outp 'A3\'];
+% F3_contdup(boxlist,inpath,outpath,'test3.mat');
+% % Step 4 is the check of near duplicates
+% inpath=outpath;
+% outpath=[outp 'A4\'];
+% F4_nearmetadup(boxlist,inpath,outpath,'test4.mat');
+% % Step 5 is an extra step that puts uses the information of all the outputs 
+% % to make the information of the deleted and modified profiles available in
+% % the form of the indices of the original boxes. This is useful to compare
+% % the original with the final box.
+% F5_get_orindices('test1.mat','test2.mat','test3.mat','test4.mat','ind.mat')

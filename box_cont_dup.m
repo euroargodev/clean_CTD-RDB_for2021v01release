@@ -2,6 +2,7 @@ function [ind,filename]=box_cont_dup(inpath,box,ipres)
 
 filename=[inpath 'ctd_' num2str(box) '.mat'];
 disp(['Box number ' num2str(box)])
+
 if nargin<3
     ipres=800:10:2000;
 end

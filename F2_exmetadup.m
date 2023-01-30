@@ -1,6 +1,6 @@
 function F2_exmetadup(boxlist,inpath,outpath,nameout,indupcell)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This function 
+% This function checks for exact metadata duplicates and removes them.
 % Input: 
 % in (INPATH) and out (OUTPATH) paths, a list of box numbers (BOXLIST), and
 % the name of the output matfile (NAMEOUTPUT) with the summary and details 
@@ -31,13 +31,13 @@ function F2_exmetadup(boxlist,inpath,outpath,nameout,indupcell)
 % PERCT % output of prof_compcont for temperature
 % PERCS % output of prof_compcont for salinity
 % EXCL  % contains iformation about excluded profiles related to the duplicate pairs!
-               
-% Obs. 
+
 % 
 % Author: Ingrid M. Angel-Benavides
 %         BSH - EURO-ARGO RISE project
 %        (ingrid.angel@bsh.de)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 % In case no INDUP is provided (all profiles will be checked for duplicates
 % against each other) no value is assigned.
 if nargin<5
@@ -125,15 +125,15 @@ for j=1:numel(boxlist)% For each box in the list
                 end
                 
                 if w==0 % if profiles are identical, delete the second
-                    excl=[excl ind(k,2)];
+                    excl=[excl ind(k,2)]; %#ok<AGROW>
                     des(k)=3; % second
                     des2(k)=NaN;
                 else % if not, delete the worst profile
-                    excl=[excl ind(k,w)];
+                    excl=[excl ind(k,w)]; %#ok<AGROW>
                 end
                 skip(k,1)=0;
             elseif conf(k)==0 % if profile is not content duplicate
-                excl=[excl ind(k,:)]; % delete both profiles
+                excl=[excl ind(k,:)]; %#ok<AGROW> % delete both profiles
                 des(k)=4; % both
                 skip(k,1)=1;
                 des2(k)=NaN;
@@ -151,7 +151,7 @@ for j=1:numel(boxlist)% For each box in the list
         disp(['from which ' num2str(numel(find(conf==1))) ' are also content duplicates'])
         disp(['and ' num2str(numel(find(conf==0))) ' had different contents'])
         disp([num2str(numel(excl)) ' profiles will be excluded'])
-        % store the summary statts in the output cell
+        % store the summary stats in the output cell
         output(j,:)=[n numel(find(conf==1)) numel(find(conf==0)) numel(excl)]; %#ok<AGROW>
         % exclude the profiles and save the new matfile in the desired
         % outpath
@@ -159,7 +159,7 @@ for j=1:numel(boxlist)% For each box in the list
         % if there is an indup vector, also save it in the new matfile (for
         % further use in the next steps)
         if isempty(indup)==0
-           indup(excl)=[]; 
+           indup(excl)=[];  %#ok<AGROW>
            eval(['save ' outpath 'ctd_' num2str(box) ' indup -append'])
         end
     else % if there is nothing to remove, save the ouput value and make a 
@@ -182,8 +182,7 @@ for j=1:numel(boxlist)% For each box in the list
     PERCS{1,j}=perc_s;% output of prof_compcont
     EXCL{1,j}=excl;% is a 2 x nduplicate vector where 1 indicates an excluded profile
                    % and 0 a retained profile
-    clear perc* conf* ind skip excl des des2
-    
+    clear perc* conf* ind skip excl des des2    
     disp('...')
 end
 
