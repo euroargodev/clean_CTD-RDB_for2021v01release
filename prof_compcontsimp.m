@@ -13,6 +13,7 @@ function [perc_t,perc_s,confirm]=prof_compcontsimp(filein,ind,deept,th)
 % For example if DEEPT = [800 2000] and TH = 0.95, the function will return a
 % CONFIRM = 1 if the contents of the truncated salinity AND temperature 
 % profiles are 95% equal between 800 and 2000 db.
+% This function is a simpler version of the PROFCONTSIMP 
 
 % Input: 
 % FILEIN is the box file. A full path plus filename must be provided 

@@ -184,7 +184,7 @@ for j=1:numel(boxlist)% For each box in the list
         disp([num2str(numel(find(near==0 & conf==1))) ' were far from each other'])
         disp([num2str(numel(excl)) ' profiles will be excluded'])
         % store the summary stats in the output cell
-        output{1}(j,:)=[n numel(find(conf==1)) numel(find(near==1 & conf==1)) numel(find(near==0 & conf==1)) numel(excl)];
+        output(j,:)=[n numel(find(conf==1)) numel(find(near==1 & conf==1)) numel(find(near==0 & conf==1)) numel(excl)]; %#ok<AGROW>
         % exclude the profiles and save the new matfile in the desired
         % outpath
         box_excl(inpath,box,excl,outpath)

@@ -23,11 +23,11 @@ F1_basic_corr(boxlist,inpath,outpath,'test1.mat');
 inpath=outpath;
 outpath=[outp 'A2\'];
 F2_exmetadup(boxlist,inpath,outpath,'test2.mat');
-% % Step 3 is the check of the content duplicates
-% inpath=outpath;
-% outpath=[outp 'A3\'];
-% F3_contdup(boxlist,inpath,outpath,'test3.mat');
-% % Step 4 is the check of near duplicates
+% Step 3 is the check of the content duplicates
+inpath=outpath;
+outpath=[outp 'A3\'];
+F3_contdup(boxlist,inpath,outpath,'test3.mat',800:10:2000,[3 3]);
+% Step 4 is the check of near duplicates
 % inpath=outpath;
 % outpath=[outp 'A4\'];
 % F4_nearmetadup(boxlist,inpath,outpath,'test4.mat');

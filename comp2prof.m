@@ -112,7 +112,7 @@ elseif finer == 2
 end
 
 % If profiles too short, skip comparison
-if length(par_fine) < 3
+if exist('par_fine','var')==0 || length(par_fine) < 3
     perc = NaN;
     return
 end
