@@ -14,9 +14,6 @@ For more details please check the Wiki.
   https://github.com/euroargodev/check_CTD-RDB
 - m_map
 	https://www.eoas.ubc.ca/~rich/map.html
-- export_fig to save figures
-	https://github.com/altmany/export_fig
-	https://www.mathworks.com/matlabcentral/fileexchange/23629-export_fig
 
 ## Funding
 
