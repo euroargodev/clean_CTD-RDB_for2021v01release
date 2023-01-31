@@ -64,7 +64,17 @@ daten=dates2daten(data.dates);daten=datestr(daten,31);
 % preparing input for displaying the profile information for each profile
 col={'BLUE','RED'}; 
 varNames={'Color','Long','Lat','Date','Time','Source','Qclevel'};
-
+%if there is no info about qclevel and/or source, do not consider those variables
+excl=[];
+% prova Anto se non ho data.qclevel
+if isfield(data, 'qclevel')==0 
+    excl=[excl 7];
+end
+if isfield(data, 'source')==0
+   excl=[excl 6];
+end
+varNames(excl)=[];clear excl
+   
 % preallocating array
 if sum(acc)>0
     nv=numel(varNames)+1;
