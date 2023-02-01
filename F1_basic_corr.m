@@ -1,4 +1,4 @@
-function F1_basic_corr(boxlist,inpath,outpath,nameoutput)
+function F1_basic_corr(boxlist,inpath,outpath,nameoutput,minmrp)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % This function creates a new version of each box file in BOXLIST. The original file
 % is located in INPATH and the new file is in OUTPATH. NAMEOUTPUT is a 
@@ -9,7 +9,8 @@ function F1_basic_corr(boxlist,inpath,outpath,nameoutput)
 % in (INPATH) and out (OUTPATH) paths, a list of box numbers (BOXLIST), and
 % the name of the output matfile (NAMEOUTPUT) with the summary and details 
 % of the changes done to the boxes.
-%
+% MINMRP indicates the minimum depth of the profiles. It is pass down to
+% the function BOX_CLEANPROFILES by the function BOX_BASIC_CORR.
 % Output: There are no variable outputs but new matfiles:
 % - new versions of the box files in BOXLIST stored in OUTPATH
 % - and the output matfile NAMEOUTPUT stored in the local directory (or in
@@ -26,7 +27,7 @@ for j=1:numel(boxlist)
     box=boxlist(j);
     % perform all the basic checks and remove samples and profiles accordingly
     [output{1}(j,:),output_label,EXCL{1,j},badsamples{1,j},badprofiles{1,j}]...
-        =box_basic_corr(inpath,box,outpath); %#ok<*ASGLU,*NASGU,*AGROW>
+        =box_basic_corr(inpath,box,outpath,minmrp); %#ok<*ASGLU,*NASGU,*AGROW>
     % makes a unique vector with all the profiles deleted in each box
     if sum(cellfun(@isempty,EXCL{1,j}))==4
         EXCL_all{1,j}=[];

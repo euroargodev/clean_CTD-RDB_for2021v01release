@@ -18,15 +18,22 @@ boxlist=[5600        5601        5602        5603        5604];%[3600        360
 % Step 1 is the basic corrections
 % https://github.com/euroargodev/clean_CTD-RDB_for2021v01release/wiki/1.-Basic-corrections
 outpath=[outp 'A1\'];
-F1_basic_corr(boxlist,inpath,outpath,'test1.mat');
+F1_basic_corr(boxlist,inpath,outpath,'test1.mat',900);% last input is minmrp 
+% for box_cleanprofiles 
+
 % Step 2 is the check of metadata duplicates
 inpath=outpath;
 outpath=[outp 'A2\'];
 F2_exmetadup(boxlist,inpath,outpath,'test2.mat');
+
 % Step 3 is the check of the content duplicates
 inpath=outpath;
 outpath=[outp 'A3\'];
-F3_contdup(boxlist,inpath,outpath,'test3.mat',800:10:2000,[3 3]);
+F3_contdup(boxlist,inpath,outpath,'test3.mat',800:10:2000,[3 3]);% last two 
+% inputs are IPRES for BOX_CONT_DUP and NEARCR for PROF_COMPNEAR 
+% All profiles that are shallower than the first IPRES value will not be
+% checked for duplicates in this step
+
 %Step 4 is the check of near duplicates
 inpath=outpath;
 outpath=[outp 'A4\'];

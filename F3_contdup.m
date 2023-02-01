@@ -1,6 +1,9 @@
 function F3_contdup(boxlist,inpath,outpath,nameout,ipres,nearcr,indupcell)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This function checks for content duplicates and removes them.
+% This function checks for content duplicates and removes them. 
+% IMPORTANT: All profiles shallower than the first IPRES value are not checked for
+% duplicates.
+
 % Input: 
 % in (INPATH) and out (OUTPATH) paths, a list of box numbers (BOXLIST), and
 % the name of the output matfile (NAMEOUTPUT) with the summary and details 
