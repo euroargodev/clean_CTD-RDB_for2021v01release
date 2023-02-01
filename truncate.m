@@ -3,13 +3,14 @@ function vec=truncate(vec,dd)
 % this function truncates a number to a certain number of digits after the
 % decimal point (different than rounding)
 % Input: 
-% VEC is
+% VEC is the vector to be truncted
+% DD is the desired number of digits after the decimal point
 % Output: 
-% NDD
+% VEC is the modified (truncated) vector 
 % 
 % Author: Ingrid M. Angel-Benavides
 %         BSH - EURO-ARGO RISE project
-%        (ingrid.angel@bsh.de)
+%        (ingrid.angel@bsh.de, ingrid.angelb@gmail.com)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 for i=1:numel(vec)
     % get value
