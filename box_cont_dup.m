@@ -1,5 +1,17 @@
 function [ind,filename]=box_cont_dup(inpath,box,ipres)
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Checks for content duplicates comparing temperature and salinity
+% interpolated to the levels given by IPRES
+% Input: in (INPATH, string) and box number (BOX, number) and IPRES a 1 x n
+% vector containig the n pressure levels to which the profiles
+% will be interpolated 
+% Output: 
+% IND as the output of the FIND_DUP function
+% FILENAME: is the full file name of the box being checked for duplicates
+% Author: Ingrid M. Angel-Benavides
+%         BSH - EURO-ARGO RISE project
+%        (ingrid.angel@bsh.de, ingrid.angelb@gmail.com)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 filename=[inpath 'ctd_' num2str(box) '.mat'];
 disp(['Box number ' num2str(box)])
 
