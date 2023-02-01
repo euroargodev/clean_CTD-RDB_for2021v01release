@@ -6,7 +6,7 @@ function  box_excl(inpath,box,excl,outpath)
 % of the files to be exluded (EXCL)
 % Author: Ingrid M. Angel-Benavides
 %         BSH - EURO-ARGO RISE project
-%        (ingrid.angel@bsh.de)
+%        (ingrid.angel@bsh.de, ingrid.angelb@gmail.com)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 disp(['Excluding  profiles from box ' num2str(box) ' ...'])

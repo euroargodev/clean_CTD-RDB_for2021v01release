@@ -17,7 +17,7 @@ function [ind, noutput]=box_cleansamples(inpath,box,outpath)
 %
 % Author: Ingrid M. Angel-Benavides
 %         BSH - EURO-ARGO RISE project
-%        (ingrid.angel@bsh.de)
+%        (ingrid.angel@bsh.de, ingrid.angelb@gmail.com)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 disp(['Cleaning samples ' num2str(box) ' ...'])

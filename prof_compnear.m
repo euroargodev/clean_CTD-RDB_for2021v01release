@@ -18,7 +18,7 @@ function near=prof_compnear(filein,ind,time_t,dist_t)
 % OBS. Uses m_map to calculate the distances
 % Author: Ingrid M. Angel-Benavides
 %         BSH - EURO-ARGO RISE project
-%        (ingrid.angel@bsh.de)
+%        (ingrid.angel@bsh.de, ingrid.angelb@gmail.com)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % extract profiles
 data=extr_prof(filein,ind);

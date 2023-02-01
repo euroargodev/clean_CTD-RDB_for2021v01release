@@ -9,7 +9,7 @@ function ndd = ndecimaldig(vec)
 % 
 % Author: Ingrid M. Angel-Benavides
 %         BSH - EURO-ARGO RISE project
-%        (ingrid.angel@bsh.de)
+%        (ingrid.angel@bsh.de, ingrid.angelb@gmail.com)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % selects only the numerical data (excludes nan)
 vec=vec(isfinite(vec));

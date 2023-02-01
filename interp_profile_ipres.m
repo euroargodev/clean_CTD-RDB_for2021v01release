@@ -14,7 +14,7 @@ function [itemp,isal]=interp_profile_ipres(pres,temp,sal,ipres)
 % values
 % Author: Ingrid M. Angel-Benavides
 %         BSH - MOCCA/EA-Rise (Euro-Argo)
-%        (ingrid.angel@bsh.de)
+%        (ingrid.angel@bsh.de, ingrid.angelb@gmail.com)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % preallocate output

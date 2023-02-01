@@ -44,7 +44,7 @@ function F5_get_orindices(file1,file2,file3,file4,fileout)
 % consider two profiles close to each other
 % Author: Ingrid M. Angel-Benavides
 %         BSH - EURO-ARGO RISE project
-%        (ingrid.angel@bsh.de)
+%        (ingrid.angel@bsh.de, ingrid.angelb@gmail.com)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%% Step 1 BASIC CORRECTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

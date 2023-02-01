@@ -31,11 +31,10 @@ function F2_exmetadup(boxlist,inpath,outpath,nameout,indupcell)
 % PERCT % output of prof_compcont for temperature
 % PERCS % output of prof_compcont for salinity
 % EXCL  % contains iformation about excluded profiles related to the duplicate pairs!
-
 % 
 % Author: Ingrid M. Angel-Benavides
 %         BSH - EURO-ARGO RISE project
-%        (ingrid.angel@bsh.de)
+%        (ingrid.angel@bsh.de, ingrid.angelb@gmail.com)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % In case no INDUP is provided (all profiles will be checked for duplicates

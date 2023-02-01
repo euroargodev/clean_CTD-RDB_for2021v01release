@@ -30,7 +30,7 @@ function [w,d,dlabel]=prof_comppc(filein,ind)
 %  
 % Author: Ingrid M. Angel-Benavides
 %         BSH - EURO-ARGO RISE project
-%        (ingrid.angel@bsh.de)
+%        (ingrid.angel@bsh.de, ingrid.angelb@gmail.com)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if numel(ind)>2
    disp(['WARNING: the function can only compare two profiles, it will compare'...

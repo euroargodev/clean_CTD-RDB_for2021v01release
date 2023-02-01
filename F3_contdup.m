@@ -44,7 +44,7 @@ function F3_contdup(boxlist,inpath,outpath,nameout,ipres,nearcr,indupcell)
 % 
 % Author: Ingrid M. Angel-Benavides
 %         BSH - EURO-ARGO RISE project
-%        (ingrid.angel@bsh.de)
+%        (ingrid.angel@bsh.de, ingrid.angelb@gmail.com)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % In case no INDUP is provided (all profiles will be checked for duplicates
 % against each other) no value is assigned.
@@ -202,7 +202,7 @@ for j=1:numel(boxlist)% For each box in the list
         end
     end
     
-     %storing indices in cells (each cell element correspond to a box in the
+    %storing indices in cells (each cell element correspond to a box in the
     %boxlist). These are the details of the procedure.
     SKI{1,j}=skip; % skipped pairs
     IND{1,j}=ind;  % duplicated pairs as the IND output from the BOX_META_DUP function
